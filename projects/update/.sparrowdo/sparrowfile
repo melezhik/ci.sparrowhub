@@ -1,9 +1,0 @@
-#!raku
-
-%*ENV<SP6_DUMP_TASK_CODE> = False;
-
-git-scm tags()<SCM_URL>, %(
-  to => "{%*ENV<HOME>}/.sparky",
-  branch => tags<SCM_BRANCH>
-);
-
