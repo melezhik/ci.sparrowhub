@@ -1,0 +1,25 @@
+#!raku
+
+333
+
+%*ENV<SP6_DUMP_TASK_CODE> = False;
+
+bash "sudo apt-get install -y libarchive13 libcurl4-openssl-dev > /dev/null";
+
+directory "scm";
+
+say "current commit is: {tags()<SCM_SHA>}";
+
+git-scm tags()<SCM_URL>, %(
+  to => "scm",
+  branch => tags<SCM_BRANCH>
+);
+
+bash 'zef install "Pakku:ver<celastrina.5>" --/test';
+
+bash "pakku nobar add noprecomp notest to home .", %(
+  cwd => "{$*CWD}/scm",
+  envvars => %(
+    :PAKKU_VERBOSE<debug>
+  )
+);
