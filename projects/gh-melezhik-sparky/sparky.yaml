@@ -15,6 +15,5 @@ allow_manual_run: true
 scm:
   url: https://github.com/melezhik/sparky.git
   branch: HEAD
-
 plugins:
   Sparky::Plugin::Docker: {}
