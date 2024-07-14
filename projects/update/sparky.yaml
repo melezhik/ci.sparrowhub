@@ -8,7 +8,7 @@ sparrowdo:
     SCM_URL=https://github.com/melezhik/ci.sparrowhub.git
     SCM_SHA=master
 disabled: false
-keep_builds: 100
+keep_builds: 1000
 allow_manual_run: true
 scm:
   url: https://github.com/melezhik/ci.sparrowhub.git
