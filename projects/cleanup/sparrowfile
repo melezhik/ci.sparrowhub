@@ -1,4 +1,8 @@
 #!raku
 
+bash "ls -lth ~/.sparky/sparkyd.log || :";
 bash "truncate -s0 ~/.sparky/sparkyd.log";
+
+bash "ls -lth ~/.sparky/sparky-web.log || :";
+bash "truncate -s0 ~/.sparky/sparky-web.log";
 
