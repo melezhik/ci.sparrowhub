@@ -1,0 +1,6 @@
+#!raku
+
+bash "df -h";
+bash "df -i";
+bash "docker ps";
+
