@@ -3,5 +3,5 @@ users/
 *.log
 .cache/
 certs/
-.sparrowdo
+.sparrowdo/
 
