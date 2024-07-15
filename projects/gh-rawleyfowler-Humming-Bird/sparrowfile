@@ -8,7 +8,7 @@ bash "raku -V > rakuenv.txt";
 
 Sparky::JobApi.new(:mine).put-file("rakuenv.txt","rakuenv.txt");
 
-bash "sudo dpkg -l | grep ssl > ssl.txt"
+bash "sudo dpkg -l | grep ssl > ssl.txt";
 
 Sparky::JobApi.new(:mine).put-file("ssl.txt","ssl.txt");
 
