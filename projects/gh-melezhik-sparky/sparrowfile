@@ -17,7 +17,7 @@ bash 'zef install "Pakku:ver<celastrina.5>" --/test';
 
 bash "pakku nobar add noprecomp notest to home .", %(
   cwd => "{$*CWD}/scm",
-  envvars => %(
-    :PAKKU_VERBOSE<debug>
-  )
+  #envvars => %(
+  #  :PAKKU_VERBOSE<debug>
+  #)
 );
