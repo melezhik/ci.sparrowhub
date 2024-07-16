@@ -16,4 +16,4 @@ scm:
   url: https://github.com/melezhik/bird.git
   branch: HEAD
 plugins:
-  bird::Plugin::Docker: {}
+  Sparky::Plugin::Docker: {}

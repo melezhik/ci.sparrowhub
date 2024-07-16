@@ -28,6 +28,7 @@ bash "zef install . --force-install", %(
 bash "sudo apt-get update -yq";
 bash "sudo apt-get install -yq nano";
 bash "sudo apt-get install -yq python3-pip";
+bash "pip3 install --user --break-system-packages pyyaml";
 
 bash "bird", %(
   cwd => "{$*CWD}/scm",
