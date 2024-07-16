@@ -1,0 +1,37 @@
+#!raku
+
+use Sparky::JobApi;
+
+%*ENV<SP6_DUMP_TASK_CODE> = False;
+
+bash "raku -V > rakuenv.txt";
+
+Sparky::JobApi.new(:mine).put-file("rakuenv.txt","rakuenv.txt");
+
+directory "scm";
+
+git-scm tags()<SCM_URL>, %(
+  to => "scm",
+  branch => tags<SCM_BRANCH>
+);
+
+bash "git show --oneline -s > gitinfo.txt", %(
+  cwd => "{$*CWD}/scm"
+);
+
+Sparky::JobApi.new(:mine).put-file("scm/gitinfo.txt","gitinfo.txt");
+
+bash "zef install . --force-install", %(
+  cwd => "{$*CWD}/scm"
+);
+
+bash "sudo apt-get update -yq";
+bash "sudo apt-get install -yq nano";
+bash "sudo apt-get install -yq python3-pip";
+
+bash "bird", %(
+  cwd => "{$*CWD}/scm",
+  envvars => %(
+   :SP6_DUMP_TASK_CODE<0>
+  )
+);
