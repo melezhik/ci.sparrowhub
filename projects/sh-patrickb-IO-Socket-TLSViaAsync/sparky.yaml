@@ -1,0 +1,19 @@
+sparrowdo:
+  no_sudo: true
+  no_index_update: false
+  bootstrap: false
+  format: default
+  repo: https://sparrowhub.io/repo
+  image: melezhik/sparrow:debian_arm
+  docker: sh-patrickb-IO-Socket-TLSViaAsync
+  tags: >
+      SCM_URL=https://git.sr.ht/~patrickb/IO-Socket-TLSViaAsync,
+      SCM_SHA=HEAD
+disabled: false
+keep_builds: 100
+allow_manual_run: true
+scm:
+  url: https://git.sr.ht/~patrickb/IO-Socket-TLSViaAsync
+  branch: HEAD
+plugins:
+  Sparky::Plugin::Docker: {}
