@@ -1,0 +1,23 @@
+#!raku
+
+%*ENV<SP6_DUMP_TASK_CODE> = False;
+
+package-install "tree coreutils";
+
+directory "scm";
+
+say "current commit is: {tags()<SCM_SHA>}";
+
+git-scm tags()<SCM_URL>, %(
+  to => "scm",
+  branch => tags<SCM_BRANCH>
+);
+
+bash q:to/CODE/, %(:cwd("{$*CWD}/scm", :description<r3tests> ));
+        tomty \
+        --only=closed \
+        --skip=example,experimental,flap,noroot,deprecated,flickering,clarify,flaky,slow,notabug \
+        --show-failed \
+        --color \
+        --dump-task
+CODE
