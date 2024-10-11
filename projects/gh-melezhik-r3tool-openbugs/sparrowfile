@@ -15,7 +15,7 @@ git-scm tags()<SCM_URL>, %(
 
 my $command = q:to /CODE/;
   tomty \
-  --only=closed \
+  --only=open \
   --skip=example,experimental,flap,rejected,noroot,deprecated,flickering,clarify,flaky,slow,notabug \
   --show-failed \
   --color \
