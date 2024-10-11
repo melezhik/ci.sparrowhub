@@ -2,7 +2,7 @@
 
 %*ENV<SP6_DUMP_TASK_CODE> = False;
 
-package-install "tree coreutils";
+bash "sudo apk add tree coreutils";
 
 directory "scm";
 
