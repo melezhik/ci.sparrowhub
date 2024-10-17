@@ -4,7 +4,7 @@ sparrowdo:
   bootstrap: false
   format: default
   repo: https://sparrowhub.io/repo
-  image: melezhik/sparrow:alpine_arm
+  image: melezhik/sparrow:alpine_arm_head
   docker: gh-melezhik-r3tool
   tags: >
       SCM_URL=https://github.com/melezhik/r3tool.git,
