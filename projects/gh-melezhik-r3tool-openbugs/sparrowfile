@@ -2,6 +2,12 @@
 
 %*ENV<SP6_DUMP_TASK_CODE> = False;
 
+bash "raku -V > rakuenv.txt";
+
+Sparky::JobApi.new(:mine).put-file("rakuenv.txt","rakuenv.txt");
+
+bash "raku -V", %( description => "raku -V" );
+
 bash "sudo apk add tree coreutils";
 
 directory "scm";

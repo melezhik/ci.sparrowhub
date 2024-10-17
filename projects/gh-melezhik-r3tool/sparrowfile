@@ -4,6 +4,12 @@
 
 bash "sudo apk add tree coreutils";
 
+bash "raku -V > rakuenv.txt";
+
+Sparky::JobApi.new(:mine).put-file("rakuenv.txt","rakuenv.txt");
+
+bash "raku -V", %( description => "raku -V" );
+
 directory "scm";
 
 say "current commit is: {tags()<SCM_SHA>}";
