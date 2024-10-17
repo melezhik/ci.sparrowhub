@@ -1,0 +1,16 @@
+sparrowdo:
+  no_sudo: true
+  no_index_update: false
+  bootstrap: false
+  format: default
+  repo: https://sparrowhub.io/repo
+  tags: >
+      SCM_URL=https://github.com/rakudo/rakudo.git,
+      SCM_SHA=HEAD,
+      SCM_BRANCH=main
+disabled: false
+keep_builds: 100
+allow_manual_run: true
+scm:
+  url: https://github.com/rakudo/rakudo.gitt
+  branch: HEAD

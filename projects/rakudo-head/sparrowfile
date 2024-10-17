@@ -1,0 +1,13 @@
+#!raku
+
+say "=========================";
+say "commit: {tags()<SCM_SHA>}";
+say "=========================";
+
+bash qq:to /BASH/, %( cwd => "{$*CWD}/scm", description => "rakudo build" );
+docker build Dockerfiles/ \
+--build-arg SHA={tags()<SCM_SHA>} \
+-f files/Dockerfiles/sparrow.alpine.arm.head \
+-t melezhik/sparrow:alpine_arm_head
+BASH
+
