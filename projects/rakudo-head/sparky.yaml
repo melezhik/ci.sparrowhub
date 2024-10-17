@@ -13,4 +13,4 @@ keep_builds: 100
 allow_manual_run: true
 scm:
   url: https://github.com/rakudo/rakudo.gitt
-  branch: HEAD
+  branch: main
