@@ -8,4 +8,5 @@ bash "ls -lth ~/.sparky/sparky-web.log || :";
 bash "truncate -s0 ~/.sparky/sparky-web.log";
 bash "ls -lth ~/.sparky/sparky-web.log || :";
 
-bash 'for i in $(sudo docker ps -q); do sudo docker stop $i; sudo docker rm $i; done'
+bash 'sudo docker stop $(sudo docker ps -a -q)';
+bash 'sudo docker rm $(sudo docker ps -a -q)';
