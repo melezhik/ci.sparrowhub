@@ -6,7 +6,6 @@ say "=========================";
 
 bash qq:to /BASH/, %( cwd => "{$*CWD}/files", description => "rakudo build" );
 docker build Dockerfiles/ \\
---no-cache \\
 --build-arg SHA={tags()<SCM_SHA>} \\
 -f Dockerfiles/sparrow.alpine.arm.head \\
 -t melezhik/sparrow:alpine_arm_head \\
