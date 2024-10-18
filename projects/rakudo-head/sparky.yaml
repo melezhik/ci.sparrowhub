@@ -14,3 +14,4 @@ allow_manual_run: true
 scm:
   url: https://github.com/rakudo/rakudo.gitt
   branch: main
+downstream: gh-melezhik-r3tool  
