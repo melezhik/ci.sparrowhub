@@ -12,6 +12,6 @@ disabled: false
 keep_builds: 100
 allow_manual_run: true
 scm:
-  url: https://github.com/rakudo/rakudo.gitt
+  url: https://github.com/rakudo/rakudo.git
   branch: main
 downstream: gh-melezhik-r3tool  
