@@ -4,7 +4,7 @@ FROM alpine:latest
 
 ENV SP6_FORMAT_COLOR=1
 
-ARG SHA=head
+ARG SHA=HEAD
 
 RUN echo OK2 && apk update && apk add openssl bash curl wget perl openssl-dev sudo git make gcc musl-dev
 
