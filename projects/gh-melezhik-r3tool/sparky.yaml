@@ -18,3 +18,7 @@ scm:
   branch: HEAD
 plugins:
   Sparky::Plugin::Docker: {}
+vars:
+      name: RAKUAST
+      type: checkbox
+      default: false
