@@ -21,6 +21,10 @@ git-scm tags()<SCM_URL>, %(
   branch => tags<SCM_BRANCH>
 );
 
+say "=========";
+say tags().perl;
+say "=========";
+
 my $command = q:to /CODE/;
   tomty \
   --only=closed \
@@ -33,5 +37,8 @@ CODE
 bash $command, %(
   cwd => "{$*CWD}/scm", 
   description => "r3tests", 
-  envvars => %( SP6_DUMP_TASK_CODE => "" ),
+  envvars => %( 
+    SP6_DUMP_TASK_CODE => "",
+    RAKUDO_RAKUAST => tags()<RAKUAST> ?? 1 !! 0,
+  ),
 );
