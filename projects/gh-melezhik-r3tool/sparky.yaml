@@ -19,7 +19,7 @@ scm:
 plugins:
   Sparky::Plugin::Docker: {}
 vars:
-  name: RAKUAST
-  type: checkbox
-  default: false
-  value: 1
+  -
+    name: RAKUAST
+    type: checkbox
+    default: false
