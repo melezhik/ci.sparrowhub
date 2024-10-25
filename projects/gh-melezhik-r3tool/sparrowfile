@@ -34,11 +34,12 @@ my $command = q:to /CODE/;
   --dump-task
 CODE
 
+my %env = %(  SP6_DUMP_TASK_CODE => "" );
+%env<RAKUDO_RAKUAST> = 1 if tags()<RAKUAST>;
+say %env.perl;
+
 bash $command, %(
   cwd => "{$*CWD}/scm", 
   description => "r3tests", 
-  envvars => %( 
-    SP6_DUMP_TASK_CODE => "",
-    RAKUDO_RAKUAST => tags()<RAKUAST> ?? 1 !! 0,
-  ),
+  envvars =>  %env,
 );
