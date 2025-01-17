@@ -76,6 +76,5 @@ bash q:to /BASH/, %( description => "tests", cwd => "{$*CWD}/scm", envvars => %e
   set -e
   set -x
   s6 --index-update
-  cd source 
   tomty --profile=ci --all --show-failed --color 
 BASH
