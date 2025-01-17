@@ -8,7 +8,7 @@ sparrowdo:
       SCM_URL=https://github.com/rakudo/rakudo.git,
       SCM_SHA=HEAD,
       SCM_BRANCH=main
-disabled: false
+disabled: true
 keep_builds: 100
 allow_manual_run: true
 scm:
