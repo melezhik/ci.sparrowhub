@@ -5,7 +5,7 @@ sparrowdo:
   format: default
   repo: https://sparrowhub.io/repo
   image: melezhik/sparrow:debian_arm
-  docker:raku-map-leaflet
+  docker: raku-map-leaflet
   tags: >
       SCM_URL=https://github.com/bduggan/raku-map-leaflet.git,
       SCM_SHA=HEAD
