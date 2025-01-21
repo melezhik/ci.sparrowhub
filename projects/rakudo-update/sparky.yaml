@@ -1,0 +1,16 @@
+sparrowdo:
+  no_sudo: true
+  no_index_update: true
+  bootstrap: false
+  format: default
+allow_manual_run: true
+vars:
+  -
+      name: version
+      default: "2023.12"
+      type: input
+  -
+      name: arch
+      values: [ alpine, debian, ubuntu ]
+      type: select
+      default: alpine

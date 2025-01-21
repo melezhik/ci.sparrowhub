@@ -1,0 +1,6 @@
+#!raku
+
+task-run "files/update", %(
+  version => tags()<version>,
+  arch => tags()<arch>,
+);
