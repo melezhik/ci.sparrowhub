@@ -4,14 +4,13 @@ version=$(config version)
 arch=$(config arch)
 basedir=$(config basedir)
 
-set -x
-
 cd $basedir
 
 echo "build melezhik/sparrow:${arch}_arm rakudo version: ${version}"
 docker build Dockerfiles/ -f Dockerfiles/sparrow.$arch.arm \
 --build-arg rakudo_version=$version \
--t melezhik/sparrow:${arch}_arm_${version}
+-t melezhik/sparrow:${arch}_arm_${version} \
+--progress plain
 
 echo "push melezhik/sparrow:${arch}_arm"
 docker push melezhik/sparrow:${arch}_arm_${version}
