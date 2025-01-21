@@ -15,5 +15,9 @@ docker build Dockerfiles/ -f Dockerfiles/sparrow.$arch.arm \
 echo "push melezhik/sparrow:${arch}_arm"
 docker push melezhik/sparrow:${arch}_arm_${version}
 
+echo  "docker image tag melezhik/sparrow:${arch}_arm_${version} melezhik/sparrow:${arch}_arm"
+docker image tag melezhik/sparrow:${arch}_arm_${version} melezhik/sparrow:${arch}_arm
+
 echo "delete intermediate docker data"
+
 docker system prune -f
