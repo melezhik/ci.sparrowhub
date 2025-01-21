@@ -2,10 +2,11 @@ set -e
 
 version=$(config version)
 arch=$(config arch)
+basedir=$(config basedir)
 
 set -x
 
-cd ~/projects/SparrowCI
+cd $basedir
 
 echo "build melezhik/sparrow:${arch}_arm rakudo version: ${version}"
 docker build Dockerfiles/ -f Dockerfiles/sparrow.$arch.arm \
