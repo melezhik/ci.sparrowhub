@@ -1,0 +1,32 @@
+#!raku
+
+use Sparky::JobApi;
+
+%*ENV<SP6_DUMP_TASK_CODE> = False;
+
+bash "raku -V > rakuenv.txt";
+
+Sparky::JobApi.new(:mine).put-file("rakuenv.txt","rakuenv.txt");
+
+say "current commit is: {tags()<SCM_SHA>}";
+
+git-scm tags()<SCM_URL>, %(
+  to => "scm",
+  branch => tags<SCM_BRANCH>
+);
+
+bash "git show --oneline -s > gitinfo.txt", %(
+  cwd => "{$*CWD}/scm"
+);
+
+Sparky::JobApi.new(:mine).put-file("scm/gitinfo.txt","gitinfo.txt");
+
+bash "zef install . --force-install", %(
+  cwd => "{$*CWD}/scm"
+);
+
+
+bash q:to /BASH/, %( description => "tests", cwd => "{$*CWD}/scm", envvars => %envvars );
+  export SP6_LOG_NO_TIMESTAMPS=1
+  tomty  --all --show-failed --color --dump-task
+BASH
