@@ -14,6 +14,8 @@ my %envvars;
 
 bash q:to /BASH/, %( description => "install pwshell", envvars => %envvars );
 
+set -e
+
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 
 sudo apt-get update -yq
@@ -25,7 +27,7 @@ libc6 \
 libgcc1 \
 libgcc-s1 \
 libgssapi-krb5-2 \
-libicu70 \
+libicu74 \
 liblttng-ust1 \
 libssl3 \
 libstdc++6 \
