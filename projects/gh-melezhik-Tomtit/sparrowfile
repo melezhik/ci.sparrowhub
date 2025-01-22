@@ -10,6 +10,8 @@ Sparky::JobApi.new(:mine).put-file("rakuenv.txt","rakuenv.txt");
 
 say "current commit is: {tags()<SCM_SHA>}";
 
+directory "scm";
+
 git-scm tags()<SCM_URL>, %(
   to => "scm",
   branch => tags<SCM_BRANCH>
