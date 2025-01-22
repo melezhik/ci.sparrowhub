@@ -26,7 +26,7 @@ bash "zef install . --force-install", %(
 );
 
 
-bash q:to /BASH/, %( description => "tests", cwd => "{$*CWD}/scm", envvars => %envvars );
+bash q:to /BASH/, %( description => "tests", cwd => "{$*CWD}/scm" );
   export SP6_LOG_NO_TIMESTAMPS=1
   tomty  --all --show-failed --color --dump-task
 BASH
