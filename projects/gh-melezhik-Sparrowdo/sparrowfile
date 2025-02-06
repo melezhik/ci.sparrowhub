@@ -27,6 +27,7 @@ bash "zef install . --force-install", %(
   cwd => "{$*CWD}/scm"
 );
 
+zef "Tomty";
 
 bash q:to /BASH/, %( description => "tests", cwd => "{$*CWD}/scm" );
   export SP6_LOG_NO_TIMESTAMPS=1
