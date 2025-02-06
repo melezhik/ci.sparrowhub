@@ -4,6 +4,8 @@ use Sparky::JobApi;
 
 %*ENV<SP6_DUMP_TASK_CODE> = False;
 
+say tags().perl;
+
 bash "raku -V > rakuenv.txt";
 
 Sparky::JobApi.new(:mine).put-file("rakuenv.txt","rakuenv.txt");
