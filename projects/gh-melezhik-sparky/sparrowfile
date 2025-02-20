@@ -13,11 +13,6 @@ git-scm tags()<SCM_URL>, %(
   branch => tags<SCM_BRANCH>
 );
 
-bash 'zef install "Pakku:ver<celastrina.5>" --/test';
-
-bash "pakku nobar add noprecomp notest to home .", %(
+bash "zef install --/test .", %(
   cwd => "{$*CWD}/scm",
-  #envvars => %(
-  #  :PAKKU_VERBOSE<debug>
-  #)
 );
