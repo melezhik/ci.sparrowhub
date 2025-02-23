@@ -1,0 +1,24 @@
+#!raku
+
+my $repo = tags()<repo>;
+my $git = tags()<git>;
+
+directory "projects/$repo";
+
+task-run "deploy sparky.yaml", "template6", %(
+ vars => %(
+  :$repo,
+  :$git,
+ ),
+ :target("projects/$repo/sparky.yaml"),
+ :template_dir<templates>,
+ :template<sparky>,
+ #:dry_run, 
+);
+
+file "projects/$repo/sparrowfile", %(
+  action  => 'create',
+  mode    => '644',
+  content => "files/sparrowfile".IO.spurt(),
+);
+
