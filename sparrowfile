@@ -2,23 +2,26 @@
 
 my $repo = tags()<repo>;
 my $git = tags()<git>;
+my $base = tags()<base>;
+my $image = tags()<image> || "debian_arm";
 
-directory "projects/$repo";
+directory "$base/projects/$repo";
 
 task-run "deploy sparky.yaml", "template6", %(
  vars => %(
   :$repo,
   :$git,
+  :$image,
  ),
- :target("projects/$repo/sparky.yaml"),
+ :target("$base/projects/$repo/sparky.yaml"),
  :template_dir<templates>,
  :template<sparky>,
  #:dry_run, 
 );
 
-file "projects/$repo/sparrowfile", %(
+file "$base/projects/$repo/sparrowfile", %(
   action  => 'create',
   mode    => '644',
-  content => "files/sparrowfile".IO.spurt(),
+  content => "files/sparrowfile".IO.slurp,
 );
 

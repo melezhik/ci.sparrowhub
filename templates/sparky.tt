@@ -4,7 +4,7 @@ sparrowdo:
   bootstrap: false
   format: default
   repo: https://sparrowhub.io/repo
-  image: melezhik/sparrow:[% template %]
+  image: melezhik/sparrow:[% image %]
   docker: [% repo %]
   tags: SCM_URL=[% git %]
 disabled: false
