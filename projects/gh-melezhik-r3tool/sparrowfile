@@ -4,7 +4,7 @@ use Sparky::JobApi;
 
 %*ENV<SP6_DUMP_TASK_CODE> = False;
 
-bash "sudo apk add tree coreutils";
+#bash "sudo apk add tree coreutils";
 
 bash "raku -V > rakuenv.txt";
 
