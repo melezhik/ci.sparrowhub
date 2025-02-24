@@ -10,7 +10,7 @@ Sparky::JobApi.new(:mine).put-file("rakuenv.txt","rakuenv.txt");
 
 bash "raku -v", %( description => "raku -v" );
 
-bash "sudo apk add tree coreutils";
+#bash "sudo apk add tree coreutils";
 
 directory "scm";
 
