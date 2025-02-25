@@ -1,19 +1,21 @@
 #!raku
 
-my $repo = tags()<repo>;
 my $git = tags()<git>;
 my $base = tags()<base>;
 my $image = tags()<image> || "debian_arm";
+my $repo = $git.split("/").tail(2).join("-");
+
+say "git: $git";
+say "repo: $repo";
 
 directory "$base/projects/$repo";
 
-task-run "deploy sparky.yaml", "template6", %(
+template6 "$base/projects/$repo/sparky.yaml", %(
  vars => %(
   :$repo,
   :$git,
   :$image,
  ),
- :target("$base/projects/$repo/sparky.yaml"),
  :template_dir<templates>,
  :template<sparky>,
  #:dry_run, 

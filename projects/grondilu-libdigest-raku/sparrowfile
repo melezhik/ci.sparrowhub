@@ -30,4 +30,3 @@ Sparky::JobApi.new(:mine).put-file("scm/gitinfo.txt","gitinfo.txt");
 bash "zef install .", %(
   cwd => "{$*CWD}/scm"
 );
-

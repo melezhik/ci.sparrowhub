@@ -7,8 +7,8 @@
 ```
 sparrowdo \
 --localhost \
---tags repo=gh-grondilu-pbkdf2-raku,\
-git=https://github.com/grondilu/pbkdf2-raku.git,\
+--tags \
+git=https://github.com/grondilu/libdigest-raku,\
 base=$PWD,\
 image=debian_arm \
 --no_sudo
