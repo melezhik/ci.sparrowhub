@@ -1,7 +1,7 @@
 #!raku
 
-my $git = tags()<git>;
-my $base = tags()<base>;
+my $git = tags()<repo>;
+my $base = "{%*ENV<HOME>}/.sparky";
 my $image = tags()<image> || "debian_arm";
 my $repo = $git.split("/").tail(2).join("-");
 

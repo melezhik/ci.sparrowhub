@@ -4,15 +4,7 @@
 
 # Add new project
 
-```
-sparrowdo \
---localhost \
---tags \
-git=https://github.com/grondilu/libdigest-raku,\
-base=$PWD,\
-image=debian_arm \
---no_sudo
-```
+Run this job - https://sparky.sparrowhub.io/build/project/new-project
 
 # web
 
