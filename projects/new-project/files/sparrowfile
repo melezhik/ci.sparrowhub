@@ -16,6 +16,10 @@ Sparky::JobApi.new(:mine).put-file("badge.txt","badge.txt");
 
 directory "scm";
 
+bash q:to /BASH/, %( :description<setup git> );
+  git config --global url."https://github.com/".insteadOf git@github.com:
+BASH
+
 git-scm tags()<SCM_URL>, %(
   to => "scm",
   branch => tags<SCM_BRANCH>
