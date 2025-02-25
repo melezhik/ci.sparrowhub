@@ -6,4 +6,5 @@ certs/
 .sparrowdo/
 .files/
 .triggers/
+sparky.yaml.off
 
