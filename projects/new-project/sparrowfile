@@ -9,7 +9,7 @@ say "git: $git";
 
 say "repo: $repo";
 
-$git ~~ /\`/ && die "bad symbols found in repo";
+$git ~~ /<-[\w\_\-\.\@\:\/\\\s\^\~]>/ && die "bad symbols found in repo (hackers attempt?)";
 
 bash "timeout 20 git ls-remote --exit-code -h \"$git\"", %(
   :description<check if this is valid git repo>
