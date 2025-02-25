@@ -1,0 +1,10 @@
+global:
+  allow:
+    users:
+      - admin
+
+projects:
+  new-project:
+    allow:
+      users:
+        - "*"
