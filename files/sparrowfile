@@ -8,7 +8,7 @@ bash "raku -V > rakuenv.txt";
 
 Sparky::JobApi.new(:mine).put-file("rakuenv.txt","rakuenv.txt");
 
-my $badge = "![Sparky](https://sparky.sparrowhub.io/badge/{tags()<SPARKY_PROJECT>}?foo=bar)](https://sparky.sparrowhub.io)";
+my $badge = "![Sparky](https://sparky.sparrowhub.io/badge/{tags()<SPARKY_PROJECT>}?foo=bar)";
 
 "badge.txt".IO.spurt($badge);
 
