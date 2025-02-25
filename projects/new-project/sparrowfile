@@ -6,7 +6,14 @@ my $image = tags()<image> || "debian_arm";
 my $repo = $git.split("/").tail(2).join("-");
 
 say "git: $git";
+
 say "repo: $repo";
+
+$git ~~ /\`/ && die "bad symbols found in repo";
+
+bash "timeout 20 git ls-remote --exit-code -h \"$git\"", %(
+  :description<check if this is valid git repo>
+);
 
 directory "$base/projects/$repo";
 
