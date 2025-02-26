@@ -1,0 +1,18 @@
+sparrowdo:
+  no_sudo: true
+  no_index_update: false
+  bootstrap: false
+  format: default
+  repo: https://sparrowhub.io/repo
+  image: melezhik/sparrow:debian_arm
+  docker: 1-1sam-Archive-Ar.git
+  tags: SCM_URL=https://codeberg.org/1-1sam/Archive-Ar.git
+disabled: false
+keep_builds: 1000
+allow_manual_run: true
+scm:
+  url: https://codeberg.org/1-1sam/Archive-Ar.git
+  branch: HEAD
+
+plugins:
+  Sparky::Plugin::Docker: {}
