@@ -1,0 +1,18 @@
+sparrowdo:
+  no_sudo: true
+  no_index_update: false
+  bootstrap: false
+  format: default
+  repo: https://sparrowhub.io/repo
+  image: melezhik/sparrow:debian_arm
+  docker: tbrowder-Number-More
+  tags: SCM_URL=https://github.com/tbrowder/Number-More
+disabled: false
+keep_builds: 1000
+allow_manual_run: true
+scm:
+  url: https://github.com/tbrowder/Number-More
+  branch: HEAD
+
+plugins:
+  Sparky::Plugin::Docker: {}
