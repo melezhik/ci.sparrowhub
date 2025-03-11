@@ -2,8 +2,6 @@
 
 use Sparky::JobApi;
 
-%*ENV<SP6_DUMP_TASK_CODE> = False;
-
 bash "raku -V > rakuenv.txt";
 
 Sparky::JobApi.new(:mine).put-file("rakuenv.txt","rakuenv.txt");
@@ -27,6 +25,7 @@ bash "zef install . --force-install --/test", %(
   cwd => "{$*CWD}/scm"
 );
 
-bash q:to /BASH/, %( description => "email-validator", cwd => "{$*CWD}/scm" );
-  tomty --color email-validator 
+bash q:to /BASH/, %( description => "mkinitcpio", cwd => "{$*CWD}/scm" );
+  export SP6_DUMP_TASK_CODE=1
+  tomty --color mkinitcpio
 BASH
