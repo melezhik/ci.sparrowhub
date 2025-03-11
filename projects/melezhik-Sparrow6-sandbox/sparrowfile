@@ -12,7 +12,7 @@ zef "https://github.com/melezhik/Sparrow6.git",  %( :force, :notest );
 
 directory "scm";
 
-git-scm "tags()<SCM_URL>", %(
+git-scm tags()<SCM_URL>, %(
   to => "scm",
   branch => tags<SCM_BRANCH>
 );
