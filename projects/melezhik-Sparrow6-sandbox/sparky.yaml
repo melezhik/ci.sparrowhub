@@ -7,13 +7,13 @@ sparrowdo:
   image: melezhik/sparrow:ubuntu_arm
   docker: melezhik-Sparrow6-sandbox
   tags: >
-      SCM_URL=https://github.com/melezhik/Sparrow6.git,
+      SCM_URL=https://github.com/melezhik/Sparrow6-Sandbox.git,
       SCM_SHA=HEAD
 disabled: false
 keep_builds: 100
 allow_manual_run: true
 scm:
-  url: https://github.com/melezhik/Sparrow6.git
+  url: https://github.com/melezhik/Sparrow6-Sandbox.git
   branch: HEAD
 plugins:
   Sparky::Plugin::Docker: {}

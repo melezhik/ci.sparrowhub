@@ -8,9 +8,11 @@ bash "raku -V > rakuenv.txt";
 
 Sparky::JobApi.new(:mine).put-file("rakuenv.txt","rakuenv.txt");
 
+zef "https://github.com/melezhik/Sparrow6.git",  %( :force, :notest );
+
 directory "scm";
 
-git-scm tags()<SCM_URL>, %(
+git-scm "tags()<SCM_URL>", %(
   to => "scm",
   branch => tags<SCM_BRANCH>
 );
@@ -20,11 +22,6 @@ bash "git show --oneline -s > gitinfo.txt", %(
 );
 
 Sparky::JobApi.new(:mine).put-file("scm/gitinfo.txt","gitinfo.txt");
-
-bash "zef install . --force-install --/test", %(
-
-  cwd => "{$*CWD}/scm"
-);
 
 bash q:to /BASH/, %( description => "mkinitcpio", cwd => "{$*CWD}/scm" );
   export SP6_DUMP_TASK_CODE=0
