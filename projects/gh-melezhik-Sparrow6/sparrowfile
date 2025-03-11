@@ -73,13 +73,14 @@ bash "zef install . --force-install", %(
   cwd => "{$*CWD}/scm"
 );
 
-
 bash q:to /BASH/, %( description => "tests", cwd => "{$*CWD}/scm", envvars => %envvars );
   set -e
   set -x
   s6 --index-update
   tomty --profile=ci --all --show-failed --color 
 BASH
+
+fez "fez";
 
 my $s = task-run "git data", "git-commit-data", %(
   :dir<scm>,
