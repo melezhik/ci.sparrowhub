@@ -6,7 +6,7 @@ bash "raku -V > rakuenv.txt";
 
 Sparky::JobApi.new(:mine).put-file("rakuenv.txt","rakuenv.txt");
 
-my %envvars;
+%*ENV<SP6_DUMP_TASK_CODE> = False;
 
 directory "scm";
 
@@ -26,6 +26,6 @@ bash "zef install . --force-install --/test", %(
 );
 
 bash q:to /BASH/, %( description => "mkinitcpio", cwd => "{$*CWD}/scm" );
-  export SP6_DUMP_TASK_CODE=1
+  export SP6_DUMP_TASK_CODE=0
   tomty --color mkinitcpio
 BASH
