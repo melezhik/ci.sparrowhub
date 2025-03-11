@@ -2,11 +2,11 @@
 
 use Sparky::JobApi;
 
+%*ENV<SP6_DUMP_TASK_CODE> = False;
+
 bash "raku -V > rakuenv.txt";
 
 Sparky::JobApi.new(:mine).put-file("rakuenv.txt","rakuenv.txt");
-
-%*ENV<SP6_DUMP_TASK_CODE> = False;
 
 directory "scm";
 
@@ -22,6 +22,7 @@ bash "git show --oneline -s > gitinfo.txt", %(
 Sparky::JobApi.new(:mine).put-file("scm/gitinfo.txt","gitinfo.txt");
 
 bash "zef install . --force-install --/test", %(
+
   cwd => "{$*CWD}/scm"
 );
 
