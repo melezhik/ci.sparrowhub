@@ -80,7 +80,7 @@ bash q:to /BASH/, %( description => "tests", cwd => "{$*CWD}/scm", envvars => %e
   tomty --profile=ci --all --show-failed --color 
 BASH
 
-fez "fez";
+zef "fez";
 
 my $s = task-run "git data", "git-commit-data", %(
   :dir<scm>,
