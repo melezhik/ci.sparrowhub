@@ -7,7 +7,7 @@ allow_manual_run: true
 vars:
   -
       name: version
-      default: "2023.12"
+      default: "2025.02-01"
       type: input
   -
       name: arch
