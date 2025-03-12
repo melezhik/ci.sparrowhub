@@ -1,6 +1,6 @@
 FROM alpine:latest
 ENV PATH="/home/worker/.raku/bin:/opt/rakudo-pkg/bin:${PATH}"
-ENV SP6_DUMP_TASK_CODE=1
+ENV SP6_DUMP_TASK_CODE=0
 ENV SP6_FORMAT_COLOR=1
 RUN apk update && apk add openssl bash curl wget perl openssl-dev sudo git
 RUN apk add --no-cache bash

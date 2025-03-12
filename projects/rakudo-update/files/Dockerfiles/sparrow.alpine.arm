@@ -2,7 +2,7 @@ FROM alpine:latest
 
 ARG rakudo_version=2024.09
 
-ENV SP6_DUMP_TASK_CODE=1
+ENV SP6_DUMP_TASK_CODE=0
 
 ENV SP6_FORMAT_COLOR=1
 

@@ -1,6 +1,6 @@
 FROM archlinux:latest
 ENV PATH="/home/worker/.raku/bin:/opt/rakudo-pkg/bin:${PATH}"
-ENV SP6_DUMP_TASK_CODE=1
+ENV SP6_DUMP_TASK_CODE=0
 ENV SP6_FORMAT_COLOR=1
 RUN pacman -Syy
 RUN pacman -S --needed --noconfirm -q curl perl bash git openssl base-devel sudo openssl-1.1

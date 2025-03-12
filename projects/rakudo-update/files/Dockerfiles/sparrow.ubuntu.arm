@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 ARG rakudo_version=2023.12
 
-ENV SP6_DUMP_TASK_CODE=1
+ENV SP6_DUMP_TASK_CODE=0
 
 ENV SP6_FORMAT_COLOR=1
 

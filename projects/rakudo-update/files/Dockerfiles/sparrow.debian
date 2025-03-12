@@ -1,6 +1,6 @@
 FROM debian:latest
 ENV PATH="/home/worker/.raku/bin:/opt/rakudo-pkg/bin:${PATH}"
-ENV SP6_DUMP_TASK_CODE=1
+ENV SP6_DUMP_TASK_CODE=0
 ENV SP6_FORMAT_COLOR=1
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -q -o Dpkg::Use-Pty=0
