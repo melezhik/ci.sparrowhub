@@ -30,10 +30,6 @@ if (tags()<pacman_config_url>) {
     curl $url -o examples/tasks/enable-minilib/pacman.conf
   BASH
 
-  "scm/examples/tasks/enable-minilib/pacman.conf".IO.spurt(
-    tags()<pacman_config>
-  );
-
 }
 
 Sparky::JobApi.new(:mine).put-file(
