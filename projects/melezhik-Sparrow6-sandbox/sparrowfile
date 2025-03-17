@@ -39,6 +39,7 @@ Sparky::JobApi.new(:mine).put-file(
 
 bash q:to /BASH/, %( description => "sandbox", cwd => "{$*CWD}/scm" );
   export SP6_LOG_NO_TIMESTAMPS=1
+  export SP6_DUMP_TASK_CODE=0
   tomty --color --all --verbose
 BASH
 
