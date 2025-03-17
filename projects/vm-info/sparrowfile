@@ -4,5 +4,7 @@ bash "df -h";
 bash "df -i";
 bash "docker ps";
 
-bash "zef upgrade Sparky";
+#bash "zef upgrade Sparky";
+
+bash "sudo service sparky restart";
 
