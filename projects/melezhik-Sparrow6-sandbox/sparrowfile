@@ -26,7 +26,7 @@ Sparky::JobApi.new(:mine).put-file("scm/gitinfo.txt","gitinfo.txt");
 
 if (tags()<pacman_config_url>) {
 
-  bash q:to /BASH/, %( description => "get config by http", cwd => "{$*CWD}/scm", %envvars => %( url => tags()<pacman_config_url> ) );
+  bash q:to /BASH/, %( description => "get config by http", cwd => "{$*CWD}/scm", envvars => %( url => tags()<pacman_config_url> ) );
     curl $url -o examples/tasks/enable-minilib/pacman.conf
   BASH
 
