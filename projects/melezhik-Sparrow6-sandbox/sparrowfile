@@ -24,6 +24,6 @@ bash "git show --oneline -s > gitinfo.txt", %(
 Sparky::JobApi.new(:mine).put-file("scm/gitinfo.txt","gitinfo.txt");
 
 bash q:to /BASH/, %( description => "mkinitcpio", cwd => "{$*CWD}/scm" );
-  export SP6_LOG_NO_TIMESTAMPS=0
+  export SP6_LOG_NO_TIMESTAMPS=1
   tomty --color mkinitcpio
 BASH
