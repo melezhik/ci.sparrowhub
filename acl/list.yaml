@@ -8,3 +8,9 @@ projects:
     allow:
       users:
         - "*"
+
+projects:
+   melezhik-Sparrow6-sandbox:
+    allow:
+      users:
+        - "*"
