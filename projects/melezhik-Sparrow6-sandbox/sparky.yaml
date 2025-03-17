@@ -19,6 +19,6 @@ plugins:
   Sparky::Plugin::Docker: {}
 vars:
   -
-      name: pacman_config
+      name: pacman_config_url
       default: ""
-      type: textarea
+      type: input
