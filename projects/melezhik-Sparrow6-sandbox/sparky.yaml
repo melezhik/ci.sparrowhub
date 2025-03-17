@@ -8,7 +8,8 @@ sparrowdo:
   docker: melezhik-Sparrow6-sandbox
   tags: >
       SCM_URL=https://github.com/melezhik/Sparrow6-Sandbox.git,
-      SCM_SHA=HEAD
+      SCM_SHA=HEAD,
+      pacman_config_url=https://raw.githubusercontent.com/acrion/ditana-installer/refs/heads/testing/tests/configuration/examples/pacman.conf
 disabled: false
 keep_builds: 100
 allow_manual_run: true
@@ -20,5 +21,5 @@ plugins:
 vars:
   -
       name: pacman_config_url
-      default: ""
+      default: https://raw.githubusercontent.com/acrion/ditana-installer/refs/heads/testing/tests/configuration/examples/pacman.conf
       type: input
