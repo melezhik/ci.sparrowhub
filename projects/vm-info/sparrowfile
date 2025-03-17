@@ -4,5 +4,5 @@ bash "df -h";
 bash "df -i";
 bash "docker ps";
 
-bash "zef update Sparky";
+bash "zef upgrade Sparky";
 
