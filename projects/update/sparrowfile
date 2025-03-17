@@ -7,4 +7,4 @@ git-scm tags()<SCM_URL>, %(
   branch => tags<SCM_BRANCH>
 );
 
-bash "sparman.raku worker_ui stop; sparman.raku worker_ui start; sparman.raku worker_ui status";
+bash "cd projects/sparky/ && cro run && sparman.raku worker_ui stop; sparman.raku worker_ui start; sparman.raku worker_ui status";
