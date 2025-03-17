@@ -23,17 +23,20 @@ bash "git show --oneline -s > gitinfo.txt", %(
 
 Sparky::JobApi.new(:mine).put-file("scm/gitinfo.txt","gitinfo.txt");
 
+directory "scm/a";
+directory "scm/b";
 
 if (tags()<pacman_config_url>) {
 
   bash q:to /BASH/, %( description => "get config by http", cwd => "{$*CWD}/scm", envvars => %( url => tags()<pacman_config_url> ) );
-    curl $url -o examples/tasks/enable-minilib/pacman.conf
+    curl -s $url -o a/pacman.conf
+    curl -s $url -o b/pacman.conf
   BASH
 
 }
 
 Sparky::JobApi.new(:mine).put-file(
-  "scm/examples/tasks/enable-minilib/pacman.conf",
+  "scm/a/pacman.conf",
   "pacman.conf",
 );
 
