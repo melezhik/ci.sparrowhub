@@ -20,5 +20,5 @@ plugins:
 vars:
   -
       name: pacman_config
-      default: place content of pacman.config here
+      default: ""
       type: textarea
