@@ -17,3 +17,8 @@ scm:
   branch: HEAD
 plugins:
   Sparky::Plugin::Docker: {}
+vars:
+  -
+      name: pacman_config
+      default: place content of pacman.config here
+      type: textarea
