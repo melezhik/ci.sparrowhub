@@ -23,21 +23,16 @@ bash "git show --oneline -s > gitinfo.txt", %(
 
 Sparky::JobApi.new(:mine).put-file("scm/gitinfo.txt","gitinfo.txt");
 
-directory "scm/a";
-directory "scm/b";
-
-
 bash q:to /BASH/, %( description => "get config by http", cwd => "{$*CWD}/scm", envvars => %( url => tags()<pacman_config_url> ) );
-  curl -s $url -o a/pacman.conf
-  curl -s $url -o b/pacman.conf
+  curl -s $url -o pacman.conf
 BASH
 
 Sparky::JobApi.new(:mine).put-file(
-  "scm/a/pacman.conf",
+  "scm/pacman.conf",
   "pacman.conf",
 );
 
-bash q:to /BASH/, %( description => "sandbox", cwd => "{$*CWD}/scm" );
+bash q:to /BASH/, %( description => "sandbox", cwd => "{$*CWD}/scm", envvars => %( ACTION => tags()<action> ) );
   export SP6_LOG_NO_TIMESTAMPS=1
   export SP6_DUMP_TASK_CODE=0
   tomty --color --all --verbose
