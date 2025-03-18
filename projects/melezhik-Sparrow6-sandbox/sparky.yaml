@@ -23,3 +23,8 @@ vars:
       name: pacman_config_url
       default: https://raw.githubusercontent.com/acrion/ditana-installer/refs/heads/testing/tests/configuration/examples/pacman.conf
       type: input
+  -
+      name: action
+      values: [ enable_multilib_repo, disable_multilib_repo ]
+      type: select
+      default: disable_multilib_repo      
