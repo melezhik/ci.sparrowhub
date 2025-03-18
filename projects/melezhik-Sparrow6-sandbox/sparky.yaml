@@ -9,7 +9,8 @@ sparrowdo:
   tags: >
       SCM_URL=https://github.com/melezhik/Sparrow6-Sandbox.git,
       SCM_SHA=HEAD,
-      pacman_config_url=https://raw.githubusercontent.com/acrion/ditana-installer/refs/heads/testing/tests/configuration/examples/pacman.conf
+      pacman_config_url=https://raw.githubusercontent.com/acrion/ditana-installer/refs/heads/testing/tests/configuration/examples/pacman.conf,
+      action=disable_multilib_repo
 disabled: false
 keep_builds: 100
 allow_manual_run: true
