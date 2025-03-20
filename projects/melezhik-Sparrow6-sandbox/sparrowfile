@@ -34,7 +34,7 @@ if tags()<stage> eq "child" {
 
   sleep(220);
 
-  bash "scm/examples/tasks/stop-qemu-box";
+  task-run "scm/examples/tasks/stop-qemu-box";
 
 }  
 
