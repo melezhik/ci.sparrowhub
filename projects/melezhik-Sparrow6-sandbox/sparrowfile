@@ -25,12 +25,14 @@ if tags()<stage> eq "child" {
     description => "run qemu box",
     tags => %(
       stage => "child",
+      SCM_URL => tags()<SCM_URL>,
+      SCM_BRANCH => tags()<SCM_BRANCH>,
     ),
   });
 
   say "queue spawned job, ",$j.info.raku;
 
-  sleep(120);
+  sleep(220);
 
   bash "scm/examples/tasks/stop-qemu-box";
 
