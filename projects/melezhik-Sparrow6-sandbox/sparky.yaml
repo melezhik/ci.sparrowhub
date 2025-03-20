@@ -4,28 +4,14 @@ sparrowdo:
   bootstrap: false
   format: default
   repo: https://sparrowhub.io/repo
-  image: melezhik/sparrow:ubuntu_arm
-  docker: melezhik-Sparrow6-sandbox
+  localhost: true
   tags: >
       SCM_URL=https://github.com/melezhik/Sparrow6-Sandbox.git,
-      SCM_SHA=HEAD,
-      pacman_config_url=https://raw.githubusercontent.com/acrion/ditana-installer/refs/heads/testing/tests/configuration/examples/pacman.conf,
-      action=disable_multilib_repo
+      SCM_SHA=HEAD
 disabled: false
 keep_builds: 100
 allow_manual_run: true
 scm:
   url: https://github.com/melezhik/Sparrow6-Sandbox.git
   branch: HEAD
-plugins:
-  Sparky::Plugin::Docker: {}
-vars:
-  -
-      name: pacman_config_url
-      default: https://raw.githubusercontent.com/acrion/ditana-installer/refs/heads/testing/tests/configuration/examples/pacman.conf
-      type: input
-  -
-      name: action
-      values: [ enable_multilib_repo, disable_multilib_repo ]
-      type: select
-      default: disable_multilib_repo      
+
