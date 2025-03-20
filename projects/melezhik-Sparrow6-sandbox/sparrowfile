@@ -23,6 +23,8 @@ if tags()<stage> and tags()<stage> eq "child" {
   );
 
 } else {
+
+  task-run "scm/examples/tasks/stop-qemu-box";
   # spawns a child job
   my $j = Sparky::JobApi.new;
   $j.queue({
