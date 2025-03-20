@@ -4,12 +4,6 @@ use Sparky::JobApi;
 
 %*ENV<SP6_DUMP_TASK_CODE> = False;
 
-bash "raku -V > rakuenv.txt";
-
-Sparky::JobApi.new(:mine).put-file("rakuenv.txt","rakuenv.txt");
-
-#zef "https://github.com/melezhik/Sparrow6.git",  %( :force, :notest );
-
 directory "scm";
 
 git-scm tags()<SCM_URL>, %(
@@ -17,15 +11,28 @@ git-scm tags()<SCM_URL>, %(
   branch => tags<SCM_BRANCH>
 );
 
-bash "git show --oneline -s > gitinfo.txt", %(
-  cwd => "{$*CWD}/scm"
-);
+if tags()<stage> eq "child" {
 
-Sparky::JobApi.new(:mine).put-file("scm/gitinfo.txt","gitinfo.txt");
+  task-run "scm/examples/tasks/run-qemu-box", %(
+    iso => "{%*ENV<HOME>}/rocky-linux-distro/Rocky-9-GenericCloud-Base.latest.aarch64.qcow2",
+    seed => "/tmp/init.iso"
+  );
 
-bash q:to /BASH/, %( description => "sandbox", cwd => "{$*CWD}/scm" );
-  export SP6_LOG_NO_TIMESTAMPS=1
-  export SP6_DUMP_TASK_CODE=0
-  tomty --color --all --verbose
-BASH
+} else {
+  # spawns a child job
+  my $j = Sparky::JobApi.new;
+  $j.queue({
+    description => "run qemu box",
+    tags => %(
+      stage => "child",
+    ),
+  });
+
+  say "queue spawned job, ",$j.info.raku;
+
+  sleep(120);
+
+  bash "scm/examples/tasks/stop-qemu-box";
+
+}  
 
