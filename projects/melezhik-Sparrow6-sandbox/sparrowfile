@@ -13,6 +13,8 @@ git-scm tags()<SCM_URL>, %(
 
 if tags()<stage> eq "child" {
 
+  bash "ls -l {%*ENV<HOME>}/rocky-linux-distro/";
+
   task-run "scm/examples/tasks/run-qemu-box", %(
     iso => "{%*ENV<HOME>}/rocky-linux-distro/Rocky-9-GenericCloud-Base.latest.aarch64.qcow2",
     seed => "/tmp/init.iso"
