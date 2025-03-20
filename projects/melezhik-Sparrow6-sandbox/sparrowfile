@@ -22,8 +22,9 @@ if tags()<stage> and tags()<stage> eq "child" {
     seed => "/tmp/init.iso"
   );
 
-} else {
-
+} elsif tags()<stage> and tags()<stage> eq "child2" {
+   say "hello from Sparky";
+ } else { 
   task-run "scm/examples/tasks/stop-qemu-box";
   # spawns a child job
   my $j = Sparky::JobApi.new;
@@ -31,6 +32,25 @@ if tags()<stage> and tags()<stage> eq "child" {
     description => "run qemu box",
     tags => %(
       stage => "child",
+      SCM_URL => tags()<SCM_URL>,
+      SCM_BRANCH => tags()<SCM_BRANCH>,
+    ),
+    sparrowdo => %(
+       :bootstrap,
+       :ssh_user => "admin",
+    ),
+  });
+
+  say "queue spawned job, ",$j.info.raku;
+
+  sleep(220);
+
+  $j = Sparky::JobApi.new: :project<qemu_bootstrap>;
+  
+  $j.queue({
+    description => "boostrap qemu box",
+    tags => %(
+      stage => "child2",
       SCM_URL => tags()<SCM_URL>,
       SCM_BRANCH => tags()<SCM_BRANCH>,
     ),
