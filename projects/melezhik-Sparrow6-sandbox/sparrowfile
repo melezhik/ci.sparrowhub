@@ -11,7 +11,7 @@ git-scm tags()<SCM_URL>, %(
   branch => tags<SCM_BRANCH>
 );
 
-if tags()<stage> eq "child" {
+if tags()<stage> and tags()<stage> eq "child" {
 
   bash "ls -l {%*ENV<HOME>}/rocky-linux-distro/";
 
