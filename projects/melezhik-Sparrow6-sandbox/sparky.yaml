@@ -7,7 +7,8 @@ sparrowdo:
   localhost: true
   tags: >
       SCM_URL=https://github.com/melezhik/Sparrow6-Sandbox.git,
-      SCM_SHA=HEAD
+      SCM_SHA=HEAD,
+      SCM_BRANCH=main
 disabled: false
 keep_builds: 100
 allow_manual_run: true

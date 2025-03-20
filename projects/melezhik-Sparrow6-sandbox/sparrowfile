@@ -25,7 +25,8 @@ if tags()<stage> and tags()<stage> eq "child" {
 }
 if tags()<stage> and tags()<stage> eq "child2" {
    say "hello from Sparky";
-} 
+}
+ 
 if !tags()<stage> { 
   task-run "scm/examples/tasks/stop-qemu-box";
   # spawns a child job
@@ -55,7 +56,7 @@ if !tags()<stage> {
     sparrowdo => %(
        :bootstrap,
        :ssh_user => "admin",
-        :ssh_port => 10022
+       :ssh_port => 10022
     ),
   });
 
