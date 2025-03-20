@@ -55,6 +55,7 @@ if !tags()<stage> {
     sparrowdo => %(
        :bootstrap,
        :ssh_user => "admin",
+        :ssh_port => 10200
     ),
   });
 
