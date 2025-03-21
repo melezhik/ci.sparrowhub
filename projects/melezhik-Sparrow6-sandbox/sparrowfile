@@ -6,65 +6,16 @@ use Sparky::JobApi;
 
 directory "scm";
 
-git-scm tags()<SCM_URL>, %(
+#git-scm tags()<SCM_URL>, %(
+#  to => "scm",
+#  branch => tags<SCM_BRANCH>
+#);
+
+git-scm "https://github.com/melezhik/ditana-installer.git", %(
   to => "scm",
-  branch => tags<SCM_BRANCH>
+  branch => "testing"
 );
 
-if tags()<stage> and tags()<stage> eq "child" {
-
-  task-run "scm/examples/tasks/setup-qemu-image";
-
-  bash "ls -lth {%*ENV<HOME>}/rocky-linux-distro";
-
-  task-run "scm/examples/tasks/run-qemu-box", %(
-    iso => "{%*ENV<HOME>}/rocky-linux-distro/Rocky-9-GenericCloud-Base.latest.aarch64.qcow2",
-    seed => "/tmp/init.iso"
-  );
-
-}
-if tags()<stage> and tags()<stage> eq "child2" {
-   say "hello from Sparky";
-}
- 
-if !tags()<stage> { 
-  task-run "scm/examples/tasks/stop-qemu-box";
-  # spawns a child job
-  my $j = Sparky::JobApi.new;
-  $j.queue({
-    description => "run qemu box",
-    tags => %(
-      stage => "child",
-      SCM_URL => tags()<SCM_URL>,
-      SCM_BRANCH => tags()<SCM_BRANCH>,
-    ),
-  });
-
-  say "queue spawned job, ",$j.info.raku;
-
-  sleep(220);
-
-  $j = Sparky::JobApi.new: :project<qemu_bootstrap>;
-  
-  $j.queue({
-    description => "boostrap qemu box",
-    tags => %(
-      stage => "child2",
-      SCM_URL => tags()<SCM_URL>,
-      SCM_BRANCH => tags()<SCM_BRANCH>,
-    ),
-    sparrowdo => %(
-       :bootstrap,
-       :ssh_user => "admin",
-       :ssh_port => 10022
-    ),
-  });
-
-  say "queue spawned job, ",$j.info.raku;
-
-  sleep(220);
-
-  task-run "scm/examples/tasks/stop-qemu-box";
-
-}  
-
+bash q:to /BASH/, %( :cwd("$*CWD/scm/tests/configuration") );
+tomty --color --all --show-failed
+BASH
