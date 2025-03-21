@@ -6,9 +6,9 @@ use Sparky::JobApi;
 
 directory "scm";
 
-zef "https://github.com/melezhik/Sparrow6.git",%(
-   :force, :notest,
-);
+#zef "https://github.com/melezhik/Sparrow6.git",%(
+#   :force, :notest,
+#);
 
 #git-scm tags()<SCM_URL>, %(
 #  to => "scm",
