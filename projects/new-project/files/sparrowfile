@@ -31,7 +31,9 @@ bash "git show --oneline -s > gitinfo.txt", %(
 
 Sparky::JobApi.new(:mine).put-file("scm/gitinfo.txt","gitinfo.txt");
 
-bash "zef install .", %(
+bash "zef --help";
+
+bash "zef install . --debug", %(
   cwd => "{$*CWD}/scm"
 );
 
