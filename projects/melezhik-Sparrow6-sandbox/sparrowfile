@@ -6,24 +6,25 @@ use Sparky::JobApi;
 
 directory "scm";
 
-#zef "https://github.com/melezhik/Sparrow6.git",%(
-#   :force, :notest,
-#);
+zef "https://github.com/melezhik/Sparrow6.git",%(
+ :force, :notest,
+);
 
 #git-scm tags()<SCM_URL>, %(
 #  to => "scm",
 #  branch => tags<SCM_BRANCH>
 #);
 
+
 git-scm "https://github.com/melezhik/ditana-installer.git", %(
   to => "scm",
-  branch => "testing"
+  branch => "testing",
 );
 
 bash q:to /BASH/, %( :cwd("$*CWD/scm/tests/configuration") );
 export SP6_DUMP_TASK_CODE=0
 #export SP6_DEBUG_TASK_CHECK=1
-export SP6_DEBUG=1
+#export SP6_DEBUG=1
 #tomty --color --all --show-failed
 tomty --color --all --verbose
 BASH
