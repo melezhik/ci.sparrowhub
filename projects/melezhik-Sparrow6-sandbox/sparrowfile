@@ -25,6 +25,6 @@ bash q:to /BASH/, %( :cwd("$*CWD/scm/tests/configuration") );
 export SP6_DUMP_TASK_CODE=0
 #export SP6_DEBUG_TASK_CHECK=1
 #export SP6_DEBUG=1
-#tomty --color --all --show-failed
-tomty --color --all --verbose
+tomty --color --all --show-failed
+#tomty --color --all --verbose
 BASH
