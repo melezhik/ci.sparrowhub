@@ -79,21 +79,3 @@ bash q:to /BASH/, %( description => "tests", cwd => "{$*CWD}/scm", envvars => %e
   s6 --index-update
   tomty --profile=ci --all --show-failed --color 
 BASH
-
-zef "fez";
-
-my $s = task-run "git data", "git-commit-data", %(
-  :dir<scm>,
-);
-
-say "sha: ", $s<sha>;
-say "comment: ", $s<comment>;
-
-if $s<comment> eq "release!" {
-  bash q:to /BASH/, %( description => "fez upload", cwd => "{$*CWD}/scm" );
-   set -e
-     tom --clean
-     tomty --clean
-     timeout 30 fez upload 
-  BASH
-}
