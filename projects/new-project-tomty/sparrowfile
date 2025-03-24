@@ -1,0 +1,44 @@
+#!raku
+
+my $git = tags()<repo> || die "repo required";
+my $base = "{%*ENV<HOME>}/.sparky";
+my $image = tags()<image> || "debian_arm";
+
+say "git: $git";
+
+
+$git ~~ /<-[\w\_\-\.\@\:\/\\\s\^\~]>/ && die "bad symbols found in repo (hackers attempt?)";
+
+bash "timeout 20 git ls-remote --exit-code -h \"$git\"", %(
+  :description<check if this is valid git repo>
+);
+
+my $repo;
+
+if $git ~~ / \S+ '@' \S+ ":" (\S+) / {
+  $repo = "$0".split("/").tail(2).join("-");
+} else {
+  $repo = $git.split("/").tail(2).join("-");
+}
+
+say "repo: $repo";
+
+directory "$base/projects/$repo";
+
+template6 "$base/projects/$repo/sparky.yaml", %(
+ vars => %(
+  :$repo,
+  :$git,
+  :$image,
+ ),
+ :template_dir<templates>,
+ :template<sparky>,
+ #:dry_run, 
+);
+
+file "$base/projects/$repo/sparrowfile", %(
+  action  => 'create',
+  mode    => '644',
+  content => "files/sparrowfile".IO.slurp,
+);
+

@@ -1,0 +1,42 @@
+#!raku
+
+use Sparky::JobApi;
+
+%*ENV<SP6_DUMP_TASK_CODE> = False;
+
+bash "raku -V > rakuenv.txt";
+
+Sparky::JobApi.new(:mine).put-file("rakuenv.txt","rakuenv.txt");
+
+my $badge = "![Sparky](https://sparky.sparrowhub.io/badge/{tags()<SPARKY_PROJECT>}?foo=bar)";
+
+"badge.txt".IO.spurt($badge);
+
+Sparky::JobApi.new(:mine).put-file("badge.txt","badge.txt");
+
+directory "scm";
+
+bash q:to /BASH/, %( :description<setup git> );
+  git config --global url."https://github.com/".insteadOf git@github.com:
+BASH
+
+git-scm tags()<SCM_URL>, %(
+  to => "scm",
+  branch => tags<SCM_BRANCH>
+);
+
+bash "git show --oneline -s > gitinfo.txt", %(
+  cwd => "{$*CWD}/scm"
+);
+
+Sparky::JobApi.new(:mine).put-file("scm/gitinfo.txt","gitinfo.txt");
+
+# bash "zef --version";
+
+zef "Tomty", %( :notest );
+
+bash "tomty --all --verbose --color", %(
+  cwd => "{$*CWD}/scm",
+  envvars => %( SP6_DUMP_TASK_CODE => 0, SP6_LOG_NO_TIMESTAMPS => 1 ),
+);
+
