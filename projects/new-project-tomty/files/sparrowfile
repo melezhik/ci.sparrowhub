@@ -35,6 +35,11 @@ Sparky::JobApi.new(:mine).put-file("scm/gitinfo.txt","gitinfo.txt");
 
 zef "Tomty", %( :notest );
 
+if "scm/init.raku".IO ~~ :e {
+    say "init from scm/init.raku";
+    EVALFILE "scm/init.raku";
+}
+
 my $opts = tags()<Verbose> ?? "--all --verbose" !! "--all --show-failed";
 
 bash "tomty $opts --color", %(
