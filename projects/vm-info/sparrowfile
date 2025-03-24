@@ -3,6 +3,7 @@
 bash "df -h";
 bash "df -i";
 bash "docker ps";
+bash "docker images";
 
 #bash "zef upgrade Sparky";
 
