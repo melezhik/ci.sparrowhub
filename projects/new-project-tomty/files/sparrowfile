@@ -35,7 +35,9 @@ Sparky::JobApi.new(:mine).put-file("scm/gitinfo.txt","gitinfo.txt");
 
 zef "Tomty", %( :notest );
 
-bash "tomty --all --verbose --color", %(
+my $opts = tags()<Verbose> ?? "--all --verbose" !! "--all --show-failed";
+
+bash "tomty $opts --color", %(
   cwd => "{$*CWD}/scm",
   envvars => %( SP6_DUMP_TASK_CODE => 0, SP6_LOG_NO_TIMESTAMPS => 1 ),
 );

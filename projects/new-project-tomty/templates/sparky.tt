@@ -14,5 +14,11 @@ scm:
   url: [% git %]
   branch: HEAD
 
+vars:
+ -
+  name: Verbose
+  type: checkbox
+  default: true
+
 plugins:
   Sparky::Plugin::Docker: {}
