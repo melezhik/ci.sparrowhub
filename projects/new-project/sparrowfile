@@ -22,9 +22,9 @@ if $git ~~ / \S+ '@' \S+ ":" (\S+) / {
 
 say "repo: $repo";
 
-my $docker = $repo.subst(/<-[\w]>/,"",:g);
+my $container = $repo.subst(/<-[\w]>/,"",:g);
 
-say "docker: $docker";
+say "container: $container";
 
 directory "$base/projects/$repo";
 
@@ -33,7 +33,7 @@ template6 "$base/projects/$repo/sparky.yaml", %(
   :$repo,
   :$git,
   :$image,
-  :$docker,
+  :$container,
  ),
  :template_dir<templates>,
  :template<sparky>,
