@@ -6,7 +6,6 @@ my $image = tags()<image> || "debian_arm";
 
 say "git: $git";
 
-
 $git ~~ /<-[\w\_\-\.\@\:\/\\\s\^\~]>/ && die "bad symbols found in repo (hackers attempt?)";
 
 bash "timeout 20 git ls-remote --exit-code -h \"$git\"", %(
@@ -23,6 +22,10 @@ if $git ~~ / \S+ '@' \S+ ":" (\S+) / {
 
 say "repo: $repo";
 
+my $docker = $repo.subst(/<-[\w]>/,"",:g);
+
+say "docker: $docker";
+
 directory "$base/projects/$repo";
 
 template6 "$base/projects/$repo/sparky.yaml", %(
@@ -30,6 +33,7 @@ template6 "$base/projects/$repo/sparky.yaml", %(
   :$repo,
   :$git,
   :$image,
+  :$docker,
  ),
  :template_dir<templates>,
  :template<sparky>,

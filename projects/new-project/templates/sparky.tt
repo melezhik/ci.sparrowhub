@@ -5,7 +5,7 @@ sparrowdo:
   format: default
   repo: https://sparrowhub.io/repo
   image: melezhik/sparrow:[% image %]
-  docker: [% repo %]
+  docker: [% container %]
   tags: SCM_URL=[% git %]
 disabled: false
 keep_builds: 1000
