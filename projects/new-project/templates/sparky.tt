@@ -7,7 +7,7 @@ sparrowdo:
   image: melezhik/sparrow:[% image %]
   docker: [% container %]
   tags: SCM_URL=[% git %]
-disabled: false
+disabled: [% disabled %]
 keep_builds: 1000
 allow_manual_run: true
 scm:

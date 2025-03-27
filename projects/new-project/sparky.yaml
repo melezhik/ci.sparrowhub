@@ -8,3 +8,7 @@ vars:
   -
       name: repo
       type: input
+  -
+      name: disabled
+      type: checkbox
+      default: false

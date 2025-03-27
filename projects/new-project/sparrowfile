@@ -28,12 +28,17 @@ say "container: $container";
 
 directory "$base/projects/$repo";
 
+my $disabled = tags()<disabled> ?? True !! False;
+
+say "disabled: $disabled";
+
 template6 "$base/projects/$repo/sparky.yaml", %(
  vars => %(
   :$repo,
   :$git,
   :$image,
   :$container,
+  :$disabled,
  ),
  :template_dir<templates>,
  :template<sparky>,
