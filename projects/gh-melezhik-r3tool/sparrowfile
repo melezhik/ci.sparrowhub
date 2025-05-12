@@ -21,8 +21,10 @@ git-scm tags()<SCM_URL>, %(
   branch => tags<SCM_BRANCH>
 );
 
+bash "sudo apt-get install rlwrap -y";
+
 say "=========";
-say tags().perl;
+say tags().raku;
 say "=========";
 
 my $command = q:to /CODE/;
