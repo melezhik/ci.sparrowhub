@@ -21,6 +21,8 @@ git-scm tags()<SCM_URL>, %(
   branch => tags<SCM_BRANCH>
 );
 
+bash "sudo apt-get install rlwrap -y";
+
 my $command = q:to /CODE/;
   tomty \
   --only=open \
