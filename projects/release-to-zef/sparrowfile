@@ -13,5 +13,5 @@ git-scm $git-repo, %(
 
 bash "tom --clean && tomty --clean && rm -rf .sparrowdo && fez upload", %(
   cwd => $dir,
-  description<fez_upload>,
+  description => "fez upload",
 );
