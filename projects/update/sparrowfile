@@ -2,9 +2,9 @@
 
 %*ENV<SP6_DUMP_TASK_CODE> = False;
 
-bash "git checkout --", %(
-   cwd => "{%*ENV<HOME>}/.sparky",
-);
+#bash "git checkout --", %(
+#   cwd => "{%*ENV<HOME>}/.sparky",
+#);
 
 git-scm tags()<SCM_URL>, %(
   to => "{%*ENV<HOME>}/.sparky",
