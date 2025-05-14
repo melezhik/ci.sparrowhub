@@ -1,0 +1,12 @@
+sparrowdo:
+  no_sudo: true
+  no_index_update: true
+  bootstrap: false
+  format: default
+allow_manual_run: true
+vars:
+  -
+      name: module
+      values: [ Sparrow6, sparrowdo, sparky-job-api ]
+      type: select
+      default: Sparrow6

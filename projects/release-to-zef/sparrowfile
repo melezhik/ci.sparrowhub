@@ -1,0 +1,17 @@
+#!raku
+
+my $git-repo = "https://github.com/melezhik/{tags()<module>}.git";
+
+my $dir = "{%*ENV<HOME>}/.releases/{tags()<module>}";
+
+directory $dir;
+
+git-scm $git-repo, %(
+  to => $dir,
+  branch => "HEAD"
+);
+
+bash "tom --clean && tomty --clean && rm -rf .sparrowdo && fez upload", %(
+  cwd => $dir,
+  description<fez_upload>,
+);
