@@ -21,6 +21,8 @@ git-scm "https://github.com/melezhik/ditana-installer.git", %(
   branch => "testing",
 );
 
+bash "sudo apt install ansible -y";
+
 bash q:to /BASH/, %( :cwd("$*CWD/scm/tests/configuration") );
 export SP6_DUMP_TASK_CODE=0
 #export SP6_DEBUG_TASK_CHECK=1
