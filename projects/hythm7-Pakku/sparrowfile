@@ -17,7 +17,6 @@ Sparky::JobApi.new(:mine).put-file("badge.txt","badge.txt");
 bash "sudo apt-get update";
 bash "sudo apt-get install -y libarchive13";
 
-
 directory "scm";
 
 bash q:to /BASH/, %( :description<setup git> );
@@ -35,9 +34,6 @@ bash "git show --oneline -s > gitinfo.txt", %(
 
 Sparky::JobApi.new(:mine).put-file("scm/gitinfo.txt","gitinfo.txt");
 
-bash "zef --version";
-
-
-bash raku -I. bin/pakku add .", %(
+bash "raku -I. bin/pakku add .", %(
   cwd => "{$*CWD}/scm"
 );
