@@ -4,14 +4,15 @@ sparrowdo:
   bootstrap: false
   format: default
   repo: https://sparrowhub.io/repo
-  tags: >
-      SCM_URL=https://github.com/rakudo/rakudo.git,
-      SCM_SHA=HEAD,
-      SCM_BRANCH=main
-disabled: false
-keep_builds: 100
+  image: melezhik/sparrow:alpine_arm
+  docker: rakudo_head
+  tags: SCM_URL=https://github.com/rakudo/rakudo.git,SCM_BRANCH=HEAD
+disabled: False
+keep_builds: 1000
 allow_manual_run: true
 scm:
   url: https://github.com/rakudo/rakudo.git
-  branch: main
-# downstream: gh-melezhik-r3tool  
+  branch: HEAD
+
+plugins:
+  Sparky::Plugin::Docker: {}

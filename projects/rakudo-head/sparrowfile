@@ -4,11 +4,31 @@ say "=========================";
 say "commit: {tags()<SCM_SHA>}";
 say "=========================";
 
-bash qq:to /BASH/, %( cwd => "{$*CWD}/files", description => "rakudo build" );
-docker build Dockerfiles/ \\
---build-arg SHA={tags()<SCM_SHA>} \\
--f Dockerfiles/sparrow.alpine.arm.head \\
--t melezhik/sparrow:alpine_arm_head \\
---progress=plain 2>\&1
+use Sparky::JobApi;
+
+%*ENV<SP6_DUMP_TASK_CODE> = False;
+
+my $badge = "![Sparky](https://sparky.sparrowhub.io/badge/{tags()<SPARKY_PROJECT>}?foo=bar)";
+
+"badge.txt".IO.spurt($badge);
+
+Sparky::JobApi.new(:mine).put-file("badge.txt","badge.txt");
+
+directory "scm";
+
+bash q:to /BASH/, %( :description<setup git> );
+  git config --global url."https://github.com/".insteadOf git@github.com:
 BASH
 
+git-scm tags()<SCM_URL>, %(
+  to => "scm",
+  branch => tags<SCM_BRANCH>
+);
+
+bash "git show --oneline -s > gitinfo.txt", %(
+  cwd => "{$*CWD}/scm"
+);
+
+Sparky::JobApi.new(:mine).put-file("scm/gitinfo.txt","gitinfo.txt");
+
+task-run "files/build";
