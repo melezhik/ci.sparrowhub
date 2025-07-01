@@ -6,7 +6,7 @@ sparrowdo:
   repo: https://sparrowhub.io/repo
   image: melezhik/sparrow:alpine_arm
   docker: rakudo_head
-  tags: SCM_URL=https://github.com/rakudo/rakudo.git,SCM_BRANCH=HEAD
+  tags: SCM_URL=https://github.com/rakudo/rakudo.git,SCM_BRANCH=HEAD,SCM_SHA=HEAD
 disabled: False
 keep_builds: 1000
 allow_manual_run: true
