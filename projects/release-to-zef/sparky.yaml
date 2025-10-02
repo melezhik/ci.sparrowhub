@@ -7,6 +7,6 @@ allow_manual_run: true
 vars:
   -
       name: module
-      values: [ Sparrow6, sparrowdo, sparky-job-api, Tomtit, Tomty ]
+      values: [ Sparrow6, Sparky, sparrowdo, sparky-job-api, Tomtit, Tomty ]
       type: select
       default: Sparrow6
