@@ -11,6 +11,8 @@ git-scm $git-repo, %(
   branch => "HEAD"
 );
 
+bash "fez version";
+
 bash "tom --clean && tomty --clean && rm -rf .sparrowdo && fez upload", %(
   cwd => $dir,
   description => "fez upload",
