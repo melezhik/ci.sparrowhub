@@ -28,4 +28,4 @@ for config()<list><>.sort -> $m {
   }
 }
 
-die unless $status;
+die "some modules installations have failed" unless $status;
