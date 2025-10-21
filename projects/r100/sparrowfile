@@ -49,9 +49,10 @@ does Sparky::JobApi::Role
       my $docker = "r100.$i.test";
       my $j = Sparky::JobApi.new(:project($docker));
       my @slice = $i == $threads ?? @list[$a .. *] !! @list[$a .. $a + $chunk*$i - 1];
+      @slice = @slice.sort;
       $j.put-stash(%( list => @slice ));
       $j.put-file("{$*CWD}/tasks.tar","tasks.tar");
-      say "slice: {@slice}";
+      say "slice: @slice";
       $a = $chunk*$i;
       bash "docker stop $docker -t 1 || :";
       bash "docker rm /$docker || :";
