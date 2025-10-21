@@ -39,6 +39,7 @@ does Sparky::JobApi::Role
       my $j = Sparky::JobApi.new(:project($docker));
       my @slice = $i == 5 ?? @list[$a .. *] !! @list[$a,$a + $chunk*$i - 1];
       $j.put-stash(%( list => @slice ));
+      say "slice: {@slice}";
       $a = $chunk*$i;
       bash "docker stop $docker -t 1 || :";
       bash "docker rm /$docker || :";
@@ -55,6 +56,7 @@ does Sparky::JobApi::Role
         )
       });
       push @q, $j;
+      say "===";
     }
 
     my $st = self.wait-jobs(@q, %( :900timeout ) );
