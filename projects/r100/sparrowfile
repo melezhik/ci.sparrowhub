@@ -2,30 +2,95 @@
 
 use Sparky::JobApi;
 
-bash "raku -V > rakuenv.txt";
+use Sparky::JobApi;
 
-Sparky::JobApi.new(:mine).put-file("rakuenv.txt","rakuenv.txt");
+class Pipeline
 
-my $badge = "![Sparky](https://sparky.sparrowhub.io/badge/{tags()<SPARKY_PROJECT>}?foo=bar)";
+does Sparky::JobApi::Role
 
-"badge.txt".IO.spurt($badge);
+{
 
-Sparky::JobApi.new(:mine).put-file("badge.txt","badge.txt");
+  method stage-main {
 
-"list.txt".IO.spurt(config()<list>);
+    bash "raku -V > rakuenv.txt";
 
-Sparky::JobApi.new(:mine).put-file("list.txt","list.txt");
+    Sparky::JobApi.new(:mine).put-file("rakuenv.txt","rakuenv.txt");
 
-my $status = True;
+    my $badge = "![Sparky](https://sparky.sparrowhub.io/badge/{tags()<SPARKY_PROJECT>}?foo=bar)";
 
-for config()<list><>.sort -> $m {
-  my $s = task-run "tasks/install", %(
-    module => $m;
-  );
-  if $s<success> == 0 {
-    $status = False;
-    Sparky::JobApi.new(:mine).put-file("log.txt","$m.install.log");
+    "badge.txt".IO.spurt($badge);
+
+    Sparky::JobApi.new(:mine).put-file("badge.txt","badge.txt");
+
+    "list.txt".IO.spurt(config()<list>);
+
+    Sparky::JobApi.new(:mine).put-file("list.txt","list.txt");
+
+    my @list = config()<list><>;
+
+    my $chunk = Int(@list/5);
+
+    my $a = 0;
+
+    my @q; # queue
+
+    for 1 .. 5 -> $i {
+      my $docker = "r100.$i.test";
+      my $j = Sparky::JobApi.new(:project($docker));
+      my @slice = $i == 5 ?? @list[$a .. *] !! @list[$a,$a + $chunk*$i - 1];
+      $j.put-stash(%( list => @slice ));
+      $a = $chunk*$i;
+      bash "docker stop $docker -t 1 || :";
+      bash "docker rm /$docker || :";
+      $j.queue({
+        description => "zef install test", 
+        tags => %(
+          :stage<test>,
+        ),
+        sparrowdo => %(
+          :image<melezhik/sparrow:ubuntu_arm>,
+          :$docker,
+          :no_sudo,
+          :no_index_update,
+        )
+      });
+      push @q, $j;
+    }
+
+    my $st = self.wait-jobs(@q, %( :900timeout ) );
+
+    die "there are some failed jobs" if $st<FAIL>;
+
+    die "there are some timeouted jobs" if $st<TIMEOUT>;
+
+    say "all jobs succeed";
+
   }
+
+  method stage-test {
+
+    my $status = True;
+
+    my $my = Sparky::JobApi.new( :mine );
+
+    my @list = $my.get-stash()<list><>;
+
+    for @list.sort -> $m {
+      my $s = task-run "tasks/install", %(
+        module => $m;
+      );
+      if $s<success> == 0 {
+        $status = False;
+        Sparky::JobApi.new(:mine).put-file("log.txt","$m.install.log");
+      }
+    }
+
+    die "some modules installations have failed" unless $status;
+
+  }
+
 }
 
-die "some modules installations have failed" unless $status;
+
+
+Pipeline.new.run;
