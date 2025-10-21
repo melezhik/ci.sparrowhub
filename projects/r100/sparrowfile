@@ -12,6 +12,7 @@ my $badge = "![Sparky](https://sparky.sparrowhub.io/badge/{tags()<SPARKY_PROJECT
 
 Sparky::JobApi.new(:mine).put-file("badge.txt","badge.txt");
 
-for config()<list><>.sort -> $m {
-  bash "zef install $m || echo 'module $m installation failed'";
-}
+task-run "tasks/install", %(
+  list => config()<list><>.sort.join(" ");
+);
+
