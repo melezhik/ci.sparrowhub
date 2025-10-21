@@ -22,7 +22,7 @@ does Sparky::JobApi::Role
 
     Sparky::JobApi.new(:mine).put-file("badge.txt","badge.txt");
 
-    "list.txt".IO.spurt(config()<list>.raku);
+    "list.txt".IO.spurt(config()<list><>.join("\n"));
 
     Sparky::JobApi.new(:mine).put-file("list.txt","list.txt");
 
@@ -34,18 +34,21 @@ does Sparky::JobApi::Role
 
     my @list = config()<list><>;
 
-    my $chunk = Int(@list.elems/5);
+    my $threads = tags()<threads> || 5;
+
+    my $chunk = Int(@list.elems/$threads);
 
     my $a = 0;
 
+    say "threads: $threads";
     say "chunk: $chunk";
 
     my @q; # queue
 
-    for 1 .. 5 -> $i {
+    for 1 .. $threads -> $i {
       my $docker = "r100.$i.test";
       my $j = Sparky::JobApi.new(:project($docker));
-      my @slice = $i == 5 ?? @list[$a .. *] !! @list[$a,$a + $chunk*$i - 1];
+      my @slice = $i == $threads ?? @list[$a .. *] !! @list[$a .. $a + $chunk*$i - 1];
       $j.put-stash(%( list => @slice ));
       $j.put-file("{$*CWD}/tasks.tar","tasks.tar");
       say "slice: {@slice}";

@@ -8,3 +8,9 @@ sparrowdo:
 disabled: false
 keep_builds: 100
 allow_manual_run: true
+
+vars:
+  -
+    name: threads
+    type: input
+    default: 5
