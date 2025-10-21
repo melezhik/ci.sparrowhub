@@ -12,6 +12,10 @@ my $badge = "![Sparky](https://sparky.sparrowhub.io/badge/{tags()<SPARKY_PROJECT
 
 Sparky::JobApi.new(:mine).put-file("badge.txt","badge.txt");
 
+"list.txt".IO.spurt(config()<list>);
+
+Sparky::JobApi.new(:mine).put-file("list.txt","list.txt");
+
 my $status = True;
 
 for config()<list><>.sort -> $m {
