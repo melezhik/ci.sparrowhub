@@ -22,15 +22,23 @@ does Sparky::JobApi::Role
 
     Sparky::JobApi.new(:mine).put-file("badge.txt","badge.txt");
 
-    "list.txt".IO.spurt(config()<list>);
+    "list.txt".IO.spurt(config()<list>.raku);
 
     Sparky::JobApi.new(:mine).put-file("list.txt","list.txt");
 
+    file-delete "tasks.tar";
+
+    say "archiving tasks/ to tasks.tar";
+
+    bash "tar cf {$*CWD}/tasks.tar -C tasks/ .";
+
     my @list = config()<list><>;
 
-    my $chunk = Int(@list/5);
+    my $chunk = Int(@list.elems/5);
 
     my $a = 0;
+
+    say "chunk: $chunk";
 
     my @q; # queue
 
@@ -39,6 +47,7 @@ does Sparky::JobApi::Role
       my $j = Sparky::JobApi.new(:project($docker));
       my @slice = $i == 5 ?? @list[$a .. *] !! @list[$a,$a + $chunk*$i - 1];
       $j.put-stash(%( list => @slice ));
+      $j.put-file("{$*CWD}/tasks.tar","tasks.tar");
       say "slice: {@slice}";
       $a = $chunk*$i;
       bash "docker stop $docker -t 1 || :";
@@ -52,7 +61,6 @@ does Sparky::JobApi::Role
           :image<melezhik/sparrow:ubuntu_arm>,
           :$docker,
           :no_sudo,
-          :no_index_update,
         )
       });
       push @q, $j;
@@ -74,6 +82,19 @@ does Sparky::JobApi::Role
     my $status = True;
 
     my $my = Sparky::JobApi.new( :mine );
+
+    my $blob = $my.get-file("tasks.tar");
+
+    directory "tasks";
+
+    my $fh = open "tasks/tasks.tar", :w, :bin;
+    $fh.write($blob);
+    $fh.close;
+
+    bash "tar -xf tasks.tar  && ls -l", %(
+      cwd => "{$*CWD}/tasks",
+      description => "unpack tasks.tar",
+    );
 
     my @list = $my.get-stash()<list><>;
 
