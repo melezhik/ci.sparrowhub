@@ -14,11 +14,11 @@ Sparky::JobApi.new(:mine).put-file("badge.txt","badge.txt");
 
 my $status = True;
 
-for  config()<list><>.sort -> $m {
+for config()<list><>.sort -> $m {
   my $s = task-run "tasks/install", %(
     module => $m;
   );
-  unless $s<success> {
+  if $s<success> == 0 {
     $status = False;
     Sparky::JobApi.new(:mine).put-file("log.txt","$m.install.log");
   }
