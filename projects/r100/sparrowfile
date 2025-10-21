@@ -61,7 +61,7 @@ does Sparky::JobApi::Role
         ),
         sparrowdo => %(
           #:image<melezhik/sparrow:ubuntu_arm>,
-          :$docker,
+          :docker<r100>,
           :no_sudo,
         )
       });
