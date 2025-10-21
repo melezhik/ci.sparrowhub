@@ -54,15 +54,13 @@ does Sparky::JobApi::Role
       $j.put-file("{$*CWD}/tasks.tar","tasks.tar");
       say "slice: {@slice.raku}";
       $a = $a + $chunk;
-      bash "docker stop $docker -t 1 || :";
-      bash "docker rm /$docker || :";
       $j.queue({
         description => "zef install test", 
         tags => %(
           :stage<test>,
         ),
         sparrowdo => %(
-          :image<melezhik/sparrow:ubuntu_arm>,
+          #:image<melezhik/sparrow:ubuntu_arm>,
           :$docker,
           :no_sudo,
         )

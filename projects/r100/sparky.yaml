@@ -5,12 +5,17 @@ sparrowdo:
   format: default
   repo: https://sparrowhub.io/repo
   image: melezhik/sparrow:ubuntu_arm
+  docker: r100
 disabled: false
 keep_builds: 100
 allow_manual_run: true
+
+plugins:
+  Sparky::Plugin::Docker: {}
 
 vars:
   -
     name: threads
     type: input
     default: 5
+
