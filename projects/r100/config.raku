@@ -1,5 +1,6 @@
 %(
   list => qw[
+    DSL::English::RecommenderWorkflows
     Tie::Hash
     ASTQuery
     Physics::Unit

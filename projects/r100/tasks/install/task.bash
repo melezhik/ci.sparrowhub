@@ -1,17 +1,11 @@
-list=$(config list)
+module=$(config module)
 
-echo "list: $list"
-echo "===================="
+rm -rf log.txt
 
-for m in $list; do
-  rm -rf log.txt
-  if zef install $m 1>log.txt 2>&1; then
-    echo "module $m installation succeed"
-  else
-    echo "module $m installation failed"
-    echo "log"
-    echo "==="
-    cat log.txt
-  fi
-  echo "==="
-done
+if zef install $m 1>log.txt 2>&1; then
+  echo "module $m installation succeed"
+  update_state success 1
+ else
+  echo "module $m installation failed"
+  update_state success 0
+fi

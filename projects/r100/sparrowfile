@@ -12,7 +12,16 @@ my $badge = "![Sparky](https://sparky.sparrowhub.io/badge/{tags()<SPARKY_PROJECT
 
 Sparky::JobApi.new(:mine).put-file("badge.txt","badge.txt");
 
-task-run "tasks/install", %(
-  list => config()<list><>.sort.join(" ");
-);
+my $status = True;
 
+for  config()<list><>.sort -> $m {
+  my $s = task-run "tasks/install", %(
+    module => $m;
+  );
+  unless $s<success> {
+    $status = False;
+    Sparky::JobApi.new(:mine).put-file("log.txt","$m.install.log");
+  }
+}
+
+die unless $status;
