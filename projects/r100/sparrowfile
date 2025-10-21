@@ -2,8 +2,6 @@
 
 use Sparky::JobApi;
 
-%*ENV<SP6_DUMP_TASK_CODE> = False;
-
 bash "raku -V > rakuenv.txt";
 
 Sparky::JobApi.new(:mine).put-file("rakuenv.txt","rakuenv.txt");
@@ -13,19 +11,6 @@ my $badge = "![Sparky](https://sparky.sparrowhub.io/badge/{tags()<SPARKY_PROJECT
 "badge.txt".IO.spurt($badge);
 
 Sparky::JobApi.new(:mine).put-file("badge.txt","badge.txt");
-
-directory "scm";
-
-git-scm tags()<SCM_URL>, %(
-  to => "scm",
-  branch => tags<SCM_BRANCH>
-);
-
-bash "git show --oneline -s > gitinfo.txt", %(
-  cwd => "{$*CWD}/scm"
-);
-
-Sparky::JobApi.new(:mine).put-file("scm/gitinfo.txt","gitinfo.txt");
 
 for config()<list><>.sort -> $m {
   bash "zef install $m || echo 'module $m installation failed'";
