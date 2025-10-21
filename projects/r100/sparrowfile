@@ -27,6 +27,6 @@ bash "git show --oneline -s > gitinfo.txt", %(
 
 Sparky::JobApi.new(:mine).put-file("scm/gitinfo.txt","gitinfo.txt");
 
-for config()<list><> -> $m {
-  bash "zef install $m || echo 'module $i installation fail'";
+for config()<list><>.sort -> $m {
+  bash "zef install $m || echo 'module $m installation fail'";
 }

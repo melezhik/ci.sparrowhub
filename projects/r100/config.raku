@@ -1,0 +1,33 @@
+%(
+  list => qw[
+    DSL::English::RecommenderWorkflows
+    Tie::Hash
+    ASTQuery
+    Physics::Unit
+    MIME::Base64
+    Version::Semverish
+    App::Crag
+    Rakuast::RakuDoc::Render
+    Elucid8::Build
+    Physics::Measure
+    SBOM::CycloneDX
+    ForwardIterables
+    String::Utils
+    Rakudo::CORE::META
+    Identity::Utils
+    Data::Translators
+    PURL
+    rawstr4c
+    Text::Utils
+    File::Path::Copy
+    Hilite
+    DBIish
+    Random::Names
+    DAWG
+    HTTP::HPACK
+    HTML::Strip
+    TAP
+    BSON
+    HTTP::UserAgent    
+  ]
+);
