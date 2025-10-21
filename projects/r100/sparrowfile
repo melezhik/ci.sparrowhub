@@ -52,7 +52,7 @@ does Sparky::JobApi::Role
       @slice = @slice.sort;
       $j.put-stash(%( list => @slice ));
       $j.put-file("{$*CWD}/tasks.tar","tasks.tar");
-      say "slice: @slice";
+      say "slice: {@slice.raku}";
       $a = $chunk*$i;
       bash "docker stop $docker -t 1 || :";
       bash "docker rm /$docker || :";
