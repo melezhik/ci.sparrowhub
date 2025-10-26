@@ -1,1 +1,2 @@
 bash "cd {%*ENV<HOME>}/projects/brownie && cd orchestrator && bash run.sh";
+bash "cd {%*ENV<HOME>}/projects/brownie && cd agent && bash run.sh";
