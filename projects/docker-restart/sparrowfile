@@ -1,3 +1,0 @@
-bash "sudo service docker restart";
-bash "sudo service nginx restart";
-

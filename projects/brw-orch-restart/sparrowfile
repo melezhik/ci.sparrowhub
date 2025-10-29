@@ -1,0 +1,2 @@
+bash "cd {%*ENV<HOME>}/projects/brownie && git pull";
+bash "cd {%*ENV<HOME>}/projects/brownie && cd orchestrator && bash ./run.sh";
