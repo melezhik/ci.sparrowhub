@@ -1,2 +1,11 @@
-bash "cd {%*ENV<HOME>}/projects/brownie && git pull";
-bash "cd {%*ENV<HOME>}/projects/brownie && cd orchestrator && bash ./run.sh";
+directory "scm";
+
+git-scm "https://github.com/melezhik/brownie.git" %(
+  to => "scm",
+);
+
+bash "bash ./sync.sh", %(
+  cwd => "{$*CWD}/scm/orchestrator"
+);
+ directory-delete "{%*ENV<HOME>}/.brownie/versions/";
+
