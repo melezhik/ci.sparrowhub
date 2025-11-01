@@ -5,7 +5,7 @@ git-scm "https://github.com/melezhik/brownie.git", %(
 );
 
 bash "bash ./sync.sh", %(
-  cwd => "{$*CWD}/scm/orchestrator"
+  cwd => "{$*CWD}/scm/brw-srv"
 );
  directory-delete "{%*ENV<HOME>}/.brownie/versions/";
 
