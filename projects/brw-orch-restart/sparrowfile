@@ -1,6 +1,6 @@
 directory "scm";
 
-git-scm "https://github.com/melezhik/brownie.git" %(
+git-scm "https://github.com/melezhik/brownie.git", %(
   to => "scm",
 );
 
