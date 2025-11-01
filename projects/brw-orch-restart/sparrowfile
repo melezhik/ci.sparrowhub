@@ -4,8 +4,13 @@ git-scm "https://github.com/melezhik/brownie.git", %(
   to => "scm",
 );
 
+bash "raku -MSparrow6::DSL -c sparrowfile", %(
+  cwd => "{$*CWD}/scm/orchestrator"
+);
+
 bash "bash ./sync.sh", %(
   cwd => "{$*CWD}/scm/orchestrator"
 );
- directory-delete "{%*ENV<HOME>}/.brownie/versions/";
+
+directory-delete "{%*ENV<HOME>}/.brownie/versions/";
 
