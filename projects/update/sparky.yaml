@@ -4,8 +4,8 @@ sparrowdo:
   bootstrap: false
   format: default
   repo: https://sparrowhub.io/repo
-  tags: >
-    SCM_URL=https://github.com/melezhik/ci.sparrowhub.git
+  tags: >-
+    SCM_URL=https://github.com/melezhik/ci.sparrowhub.git,
     SCM_SHA=master
 disabled: false
 keep_builds: 1000

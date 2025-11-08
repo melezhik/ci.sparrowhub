@@ -6,9 +6,9 @@ sparrowdo:
   repo: https://sparrowhub.io/repo
   image: melezhik/sparrow:ubuntu_arm
   docker: gh-melezhik-Tomty
-  tags: >
-      SCM_URL=https://github.com/melezhik/Tomty.git,
-      SCM_SHA=HEAD
+  tags: >-
+        SCM_URL=https://github.com/melezhik/Tomty.git,
+        SCM_SHA=HEAD
 disabled: false
 keep_builds: 100
 allow_manual_run: true
