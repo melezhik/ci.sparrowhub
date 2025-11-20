@@ -12,5 +12,13 @@ bash "bash ./sync.sh", %(
   cwd => "{$*CWD}/scm/orchestrator"
 );
 
-directory-delete "{%*ENV<HOME>}/.brownie/versions/";
+bash "raku -MSparrow6::DSL -c sparrowfile", %(
+  cwd => "{$*CWD}/scm/reporter"
+);
+
+bash "bash ./sync.sh", %(
+  cwd => "{$*CWD}/scm/reporter"
+);
+
+#directory-delete "{%*ENV<HOME>}/.brownie/versions/";
 
