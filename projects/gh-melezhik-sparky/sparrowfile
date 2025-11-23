@@ -2,6 +2,8 @@
 
 %*ENV<SP6_DUMP_TASK_CODE> = False;
 
+bash "sudo apt-get update -y";
+
 bash "sudo apt-get install -y libarchive13 libcurl4-openssl-dev > /dev/null";
 
 directory "scm";
