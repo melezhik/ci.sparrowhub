@@ -1,3 +1,24 @@
-bash "cd {%*ENV<HOME>}/projects/brownie && git pull";
-#bash "cd {%*ENV<HOME>}/projects/brownie && cd orchestrator && bash ./run.sh";
-bash "cd {%*ENV<HOME>}/projects/brownie && cd agent && bash ./run.sh";
+directory "scm";
+
+git-scm "https://github.com/melezhik/brownie.git", %(
+  to => "scm",
+);
+
+bash "raku -MSparrow6::DSL -c sparrowfile", %(
+  cwd => "{$*CWD}/scm/orchestrator"
+);
+
+bash "bash ./sync.sh", %(
+  cwd => "{$*CWD}/scm/orchestrator"
+);
+
+bash "raku -MSparrow6::DSL -c sparrowfile", %(
+  cwd => "{$*CWD}/scm/reporter"
+);
+
+bash "bash ./sync.sh", %(
+  cwd => "{$*CWD}/scm/reporter"
+);
+
+#directory-delete "{%*ENV<HOME>}/.brownie/versions/";
+

@@ -4,8 +4,7 @@ sparrowdo:
   bootstrap: false
   format: default
   repo: https://sparrowhub.io/repo
-  docker: brw-srv
 disabled: false
-keep_builds: 100
+keep_builds: 1000
 allow_manual_run: true
 
