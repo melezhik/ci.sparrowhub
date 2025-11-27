@@ -11,4 +11,4 @@ git-scm tags()<SCM_URL>, %(
   branch => tags<SCM_BRANCH>
 );
 
-bash "sparman.raku worker_ui start";
+bash "sudo service sparky start";
