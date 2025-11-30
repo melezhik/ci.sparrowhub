@@ -12,6 +12,6 @@ bash "bash ./sync.sh", %(
   cwd => "{$*CWD}/scm/agent"
 );
 
-bash "truncate –s0 ~/.sparky/sparkyd.log";
+bash "echo > ~/.sparky/sparkyd.log";
 
-bash "truncate –s0 ~/.sparky/sparky.log";
+bash "echo > ~/.sparky/sparky.log";
