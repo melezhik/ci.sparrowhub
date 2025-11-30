@@ -14,4 +14,4 @@ bash "bash ./sync.sh", %(
 
 bash "echo > ~/.sparky/sparkyd.log";
 
-bash "echo > ~/.sparky/sparky.log";
+bash "echo > ~/.sparky/sparky-web.log";
