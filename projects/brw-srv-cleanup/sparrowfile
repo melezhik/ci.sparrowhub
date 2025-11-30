@@ -1,2 +1,2 @@
-bash "docker exec -it brw-srv truncate -s 0 ~/.sparky/sparkyd.log";
-bash "docker exec -it brw-srv truncate -s 0 ~/.sparky/sparky-web.log";
+bash "docker exec -it brw-srv bash -c 'truncate -s 0 ~/.sparky/sparkyd.log'";
+bash "docker exec -it brw-srv bash -c 'truncate -s 0 ~/.sparky/sparky-web.log'";
