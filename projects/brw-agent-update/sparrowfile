@@ -1,17 +1,1 @@
-directory "scm";
-
-git-scm "https://github.com/melezhik/brownie.git", %(
-  to => "scm",
-);
-
-bash "raku -MSparrow6::DSL -c sparrowfile", %(
-  cwd => "{$*CWD}/scm/agent"
-);
-
-bash "bash ./sync.sh", %(
-  cwd => "{$*CWD}/scm/agent"
-);
-
-bash "echo > ~/.sparky/sparkyd.log";
-
-bash "echo > ~/.sparky/sparky-web.log";
+bash "docker exec -it agent bash /opt/brownie/agent/upgrade.sh";

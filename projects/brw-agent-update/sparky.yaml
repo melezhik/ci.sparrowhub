@@ -4,7 +4,6 @@ sparrowdo:
   bootstrap: false
   format: default
   repo: https://sparrowhub.io/repo
-  docker: agent
 disabled: false
 keep_builds: 100
 allow_manual_run: true
