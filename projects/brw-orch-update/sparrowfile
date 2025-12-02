@@ -20,5 +20,5 @@ bash "bash ./sync.sh", %(
   cwd => "{$*CWD}/scm/reporter"
 );
 
-#directory-delete "{%*ENV<HOME>}/.brownie/versions/";
+directory-delete "{%*ENV<HOME>}/.brownie/versions/fe0e20c28859ea709eefad19af452c9d35dff20d/Mux";
 
