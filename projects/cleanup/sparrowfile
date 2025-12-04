@@ -11,4 +11,8 @@ bash "ls -lth ~/.sparky/sparky-web.log || :";
 #bash 'sudo docker stop $(sudo docker ps -a -q) || :';
 #bash 'sudo docker rm $(sudo docker ps -a -q) || :';
 
+bash "docker stop agent -t 1 || :";
+
+bash "docker image rm 28d1c11744a1 || :";
+
 bash "sudo docker system prune -f";
