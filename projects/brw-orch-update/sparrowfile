@@ -20,11 +20,11 @@ bash "bash ./sync.sh", %(
   cwd => "{$*CWD}/scm/reporter"
 );
 
-file-delete "{%*ENV<HOME>}/.brownie/versions/fe0e20c28859ea709eefad19af452c9d35dff20d/Mux.OK";
+#file-delete "{%*ENV<HOME>}/.brownie/versions/fe0e20c28859ea709eefad19af452c9d35dff20d/Mux.OK";
 
-file-delete "{%*ENV<HOME>}/.brownie/versions/fe0e20c28859ea709eefad19af452c9d35dff20d/Mux.FAIL";
+#file-delete "{%*ENV<HOME>}/.brownie/versions/fe0e20c28859ea709eefad19af452c9d35dff20d/Mux.FAIL";
 
-file-delete "{%*ENV<HOME>}/.brownie/versions/fe0e20c28859ea709eefad19af452c9d35dff20d/Mux.log";
+#file-delete "{%*ENV<HOME>}/.brownie/versions/fe0e20c28859ea709eefad19af452c9d35dff20d/Mux.log";
 
-directory-delete "{%*ENV<HOME>}/.brownie/versions/fe0e20c28859ea709eefad19af452c9d35dff20d/Mux";
+#directory-delete "{%*ENV<HOME>}/.brownie/versions/fe0e20c28859ea709eefad19af452c9d35dff20d/Mux";
 
