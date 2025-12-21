@@ -17,8 +17,9 @@ bash q:to /BASH/, %( description => "install pwshell", envvars => %envvars );
 set -e
 
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+export DEBIAN_FRONTEND=noninteractive
 export TZ=Etc/UTC
-sudo apt-get install -yq tzdata
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -yq tzdata
 sudo apt-get update -yq
 sudo apt-get install -yq \
 ruby-dev ruby-bundler \
