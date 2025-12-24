@@ -1,0 +1,16 @@
+begin:
+    enabled
+    active
+    Using domain server:
+    Name: 127.0.0.1
+    Address: 127.0.0.1#53
+    Aliases:
+    regexp: ^^  $$
+    example.com has address 172.20.0.100
+    example.com mail is handled by 10 mail.another.com.
+    172.20.0.100
+    172.20.0.100
+    172.20.0.101
+    172.20.0.102
+    10 mail.another.com.
+end:
