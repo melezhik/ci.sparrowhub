@@ -3,7 +3,7 @@ begin:
     active
     Using domain server:
     Name: 127.0.0.1
-    Address: 127.0.0.1#53
+    Address: 127.0.0.1#53530
     Aliases:
     regexp: ^^  $$
     example.com has address 172.20.0.100

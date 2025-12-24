@@ -12,8 +12,11 @@ if [ ! -f /etc/nsd/nsd.conf.orig ]; then
 fi
 
 
-if ! grep -q "name: example.com" /etc/nsd/nsd.conf; then
-cat <<'EOF' | sudo tee -a /etc/nsd/nsd.conf
+cat <<'EOF' | sudo tee /etc/nsd/nsd.conf
+server:
+        port: 53530
+        log-only-syslog: yes
+include: "/etc/nsd/nsd.conf.d/*.conf"
 zone:
     name: example.com
     zonefile: /etc/nsd/example.com.zone
@@ -47,12 +50,12 @@ sudo systemctl is-enabled nsd
 sudo systemctl is-active nsd
 
 # Check DNS resolution using host command
-host example.com 127.0.0.1
+host example.com 127.0.0.1:53530
 
 # Check individual records using dig command
-dig a @127.0.0.1 +short example.com
-dig a @127.0.0.1 +short ns1.example.com
-dig a @127.0.0.1 +short www.example.com
-dig a @127.0.0.1 +short mail.example.com
-dig mx @127.0.0.1 +short example.com
+dig a @127.0.0.1:53530 +short example.com
+dig a @127.0.0.1:53530 +short ns1.example.com
+dig a @127.0.0.1:53530 +short www.example.com
+dig a @127.0.0.1:53530 +short mail.example.com
+dig mx @127.0.0.1:53530 +short example.com
 
