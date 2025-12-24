@@ -1,19 +1,15 @@
 #!raku
 
-bash "echo Hello World";
+use Sparky::JobApi;
 
-say "[{%*ENV<SP6_TAGS>}]";
+my $scenario = tags()<scenario>;
 
-say "tags: ", tags().raku;
+bash "cat /etc/os-release > os-release.txt";
 
-#say "config: ", config().raku;
+Sparky::JobApi.new(:mine).put-file("os-release.txt","os-release.txt");
 
-say "{$*CWD}";
+say "scenario: $scenario";
 
-say tags()<password>;
 say "===";
-say tags()<name>;
-say "===";
-say tags()<lastname>;
-say "===";
-say tags()<lines>;
+
+task-run "tasks/$scenario";
