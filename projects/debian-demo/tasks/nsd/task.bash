@@ -21,7 +21,6 @@ zone:
     name: example.com
     zonefile: /etc/nsd/example.com.zone
 EOF
-fi
 
 cat<<'EOF' | sudo tee /etc/nsd/example.com.zone
 $TTL    86400 ; How long should records last?
@@ -50,12 +49,12 @@ sudo systemctl is-enabled nsd
 sudo systemctl is-active nsd
 
 # Check DNS resolution using host command
-host example.com 127.0.0.1:53530
+host example.com -p 53530 127.0.0.1
 
 # Check individual records using dig command
-dig a @127.0.0.1:53530 +short example.com
-dig a @127.0.0.1:53530 +short ns1.example.com
-dig a @127.0.0.1:53530 +short www.example.com
-dig a @127.0.0.1:53530 +short mail.example.com
-dig mx @127.0.0.1:53530 +short example.com
+dig -p 53530 a @127.0.0.1 +short example.com
+dig -p 53530 a @127.0.0.1 +short ns1.example.com
+dig -p 53530 a @127.0.0.1 +short www.example.com
+dig -p 53530 a @127.0.0.1 +short mail.example.com
+dig -p 53530 mx @127.0.0.1 +short example.com
 
