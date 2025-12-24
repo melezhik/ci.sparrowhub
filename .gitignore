@@ -7,4 +7,4 @@ certs/
 .files/
 .triggers/
 sparky.yaml.off
-
+.precomp/

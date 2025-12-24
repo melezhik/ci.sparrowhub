@@ -4,7 +4,7 @@ sparrowdo:
   bootstrap: false
   format: default
   repo: https://sparrowhub.io/repo
-disabled: false
+disabled: true
 keep_builds: 100
 allow_manual_run: true
 crontab: 0 * * * *
