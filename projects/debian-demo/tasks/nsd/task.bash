@@ -49,7 +49,7 @@ sudo systemctl is-enabled nsd
 sudo systemctl is-active nsd
 
 # Check DNS resolution using host command
-host example.com -p 53530 127.0.0.1
+host -p 53530  example.com 127.0.0.1
 
 # Check individual records using dig command
 dig -p 53530 a @127.0.0.1 +short example.com
