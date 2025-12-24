@@ -14,3 +14,9 @@ projects:
     allow:
       users:
         - "*"
+
+projects:
+   debian-demo:
+    allow:
+      users:
+        - debian
