@@ -1,0 +1,19 @@
+#!raku
+
+bash "echo Hello World";
+
+say "[{%*ENV<SP6_TAGS>}]";
+
+say "tags: ", tags().raku;
+
+#say "config: ", config().raku;
+
+say "{$*CWD}";
+
+say tags()<password>;
+say "===";
+say tags()<name>;
+say "===";
+say tags()<lastname>;
+say "===";
+say tags()<lines>;
