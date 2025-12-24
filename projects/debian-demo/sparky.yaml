@@ -5,11 +5,11 @@ sparrowdo:
   bootstrap: false
   format: default
 disabled: false
-allow_manual_run: true  
+allow_manual_run: true
 keep_builds: 5
 vars:
   -
       name: scenario
-      values: [ python-ssl ]
+      values: [ python-ssl, redis ]
       type: select
       default: python-ssl
