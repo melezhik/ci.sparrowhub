@@ -10,6 +10,6 @@ keep_builds: 5
 vars:
   -
       name: scenario
-      values: [ python-ssl, redis ]
+      values: [ python-ssl, redis, nsd ]
       type: select
       default: python-ssl
