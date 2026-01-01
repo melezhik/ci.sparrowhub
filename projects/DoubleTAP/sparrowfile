@@ -1,0 +1,12 @@
+#!raku
+
+git-scm tags()<SCM_URL>, %(
+  to => "{%*ENV<HOME>}/projects/doubletap",
+  branch => tags<SCM_BRANCH>
+);
+
+#bash "tom install", %(
+#  cwd => "{%*ENV<HOME>}/projects/sparky",
+#);
+
+#bash "sudo service sparky restart";
