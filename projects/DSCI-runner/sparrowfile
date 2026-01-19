@@ -5,6 +5,6 @@ git-scm tags()<SCM_URL>, %(
   branch => tags<SCM_BRANCH>
 );
 
-bash "raku -MSparrow6::DSL && bash ./sync.sh", %(
+bash "raku -MSparrow6::DSL -e 1 && bash ./sync.sh", %(
   cwd => "{%*ENV<HOME>}/projects/dsci-runner",
 );
