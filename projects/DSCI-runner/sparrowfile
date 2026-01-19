@@ -1,5 +1,8 @@
 #!raku
 
+bash "git branch --set-upstream-to=origin/main main", %(
+  cwd => "{%*ENV<HOME>}/projects/dsci-runner",
+);
 git-scm tags()<SCM_URL>, %(
   to => "{%*ENV<HOME>}/projects/dsci-runner",
   branch => tags<SCM_BRANCH>
