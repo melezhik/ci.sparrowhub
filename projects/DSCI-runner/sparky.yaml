@@ -6,10 +6,10 @@ sparrowdo:
   repo: https://sparrowhub.io/repo
   tags: >-
     SCM_URL=https://github.com/melezhik/dsci-runner.git,
-    SCM_SHA=master
+    SCM_SHA=main
 disabled: false
 keep_builds: 100
 allow_manual_run: true
 scm:
   url: https://github.com/melezhik/dsci-runner.git
-  branch: master
+  branch: main
