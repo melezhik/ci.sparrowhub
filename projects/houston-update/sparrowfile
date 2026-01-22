@@ -1,7 +1,7 @@
 #!raku
 
 git-scm tags()<SCM_URL>, %(
-  to => "{%*ENV<HOME>}/projects/houston",
+  to => "{%*ENV<HOME>}/projects/houston-site",
   branch => tags<SCM_BRANCH>
 );
 
