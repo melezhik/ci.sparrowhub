@@ -1,0 +1,352 @@
+#!raku
+
+use Sparky::JobApi;
+
+use JSON::Fast;
+
+use YAMLish;
+
+class Pipeline
+
+does Sparky::JobApi::Role
+
+{
+
+  method !validate-cond-expression ($exp,$debug = False) {
+    my @b; # bogus lines
+    for $exp.split(/\s [ "and" || "or" || "&&" || "||" ]  \s/)
+    .map({
+      .subst("(","",:g)
+      .subst(")","",:g)
+      .subst(/^^ \s+/,"")
+      .subst(/\s+ $$/,"")
+      .subst('$$',"rx_end_of_line",:g)
+      }) -> $i {
+      say "parse [$i]" if $debug;  
+      if  $i !~~ /
+          ^^ 
+            ".<" 
+              \w+ 
+            ">" 
+          \s+ 
+          [ 
+            ">" || ">=" || "<" || "<=" || "==" || "!=" || "eq" || "ne" ||  "~~" || "!~~" 
+          ]
+          \s+
+          [
+            \" <[ \/ \\ \d \. \: \w \d ]> + \" || 
+            \d+ || 
+            "m:" <[i m g r s \:]> + \s* \/ <-[ \{ \{ \$  ]> +  \/ ||
+            \/ <-[ \{ \{ \$  ]> + \/
+          ] 
+          $$
+        / {
+        push @b, $i
+      }
+    }
+    if @b.elems {
+      say "validate-cond-expression: does not look good";
+      say "validated expression: $exp";
+      say "===";
+      for @b -> $i {
+        say "bogus chunk found: $i"
+      }
+      say "===";
+    }
+    return @b.elems == 0;
+  }
+
+  method !update-commit-status ($s) {
+    
+    my $url = "{%*ENV<DSCI_FEEDBACK_URL> || 'http://127.0.0.1:4000'}/report_jid/dsci/{tags()<SPARKY_JOB_ID>}";
+
+    my $data = qq['\{ "state": "{$s}", "target_url": "{$url}", "description": "The build status: {$s}", "context": "dsci" \}'];
+
+    my $params = "--data $data -H \"Authorization: token {%*ENV<FORGEJO_API_TOKEN>}\" -H \"Content-Type: application/json\" -D - -fsL -s /dev/null",
+
+    my $ext-url = "{%*ENV<FORGEJO_HOST> || 'http://127.0.0.1:3000'}/api/v1/repos/{tags()<repo_full_name>}/statuses/{tags()<sha>}";
+
+    say "send update to CI ... ext-url: $ext-url";
+
+    say qqx[curl $params $ext-url].chomp;
+
+    say "done";
+
+  }
+
+  method stage-main {
+
+    self!update-commit-status("pending");
+
+    directory "scm";
+
+    say "scm: ",tags()<scm>;
+    say "sha: ",tags()<sha>;
+    say "message: ",tags()<message>.chomp;
+    say "=======";
+
+    bash "git config --global advice.detachedHead false";
+
+    my $scm = tags()<scm>;
+
+    git-scm tags()<scm>, %(
+      :to<scm>,
+      :branch(tags()<sha>),
+      :skip-pull,
+    );
+
+    my $jobs = load-yaml("scm/.dsci/jobs.yaml".IO.slurp);
+
+    my $status = True;
+
+    #say $jobs.raku;
+
+    my $cont = True;
+
+    if $jobs<global> && $jobs<global><skip> {
+      if self!validate-cond-expression($jobs<global><skip>,$jobs<global><debug>||False) {
+        use MONKEY-SEE-NO-EVAL;
+        $cont = False if EVAL("my \$a = \{given (tags()) \{ {$jobs<global><skip>} \}\}; \$a()");
+      } else {
+        warn "skip: job condition validation failed";
+        $status = False;
+        $cont = False; 
+      }
+    }
+
+    if $cont && $jobs<global> && $jobs<global><only> {
+      if self!validate-cond-expression($jobs<global><only>,$jobs<global><debug>||False) {
+        use MONKEY-SEE-NO-EVAL;
+        $cont = False unless EVAL("my \$a = \{given (tags()) \{ {$jobs<global><only>} \}\}; \$a()");
+      } else {
+        warn "only: job condition validation failed";
+        $status = False;
+        $cont = False; 
+      }
+    }
+
+    if $cont {
+
+      my %_dsci;
+    
+      bash "sudo chmod 666 /var/run/docker.sock" unless %*ENV<DSCI_ORCHESTRATOR_NO_CONTAINER>;
+
+      bash "docker stop -t 1 dsci-agent || :";
+
+      say "run dsci agent container from image: {%*ENV<DSCI_AGENT_IMAGE>||'alpine:latest'}";
+
+      bash "docker run --add-host host.docker.internal:host-gateway -dit --rm --name dsci-agent --network dsci --entrypoint /bin/sh {%*ENV<DSCI_AGENT_IMAGE> || 'alpine:latest'}";
+
+      unless %*ENV<DSCI_AGENT_SKIP_BOOTSTRAP> {
+        my $j = Sparky::JobApi.new(
+            :project("job.bootstrap"),
+        );
+
+        $j.queue({
+            :description("dsci agent bootstrap"),
+            :tags(%(stage => "bootstrap")),
+            :sparrowdo(%(
+              :docker<dsci-agent>,
+              :bootstrap,
+              :no_sudo,
+            )),
+        });
+  
+
+        my $st = self.wait-job($j);
+
+        if ! $st<OK> {
+          $status = False;
+          say "dsci agent boorstrap ... [FAIL]";
+          say "...";
+          say $j.report();
+        } else {
+          say "dsci agent boorstrap ... [OK]";
+          say "...";
+          say $j.report();
+        }
+
+      }
+
+      if $status {
+
+        for $jobs<jobs>.flat -> $job {
+
+          if $job<only> {
+            if self!validate-cond-expression($job<only>,$job<debug>||False) {
+              use MONKEY-SEE-NO-EVAL;
+              next unless EVAL("my \$a = \{given (tags()) \{ {$job<only>} \}\}; \$a()");
+            } else {
+              warn "only: job condition validation failed";
+              $status = False;
+              last; 
+            }
+          }
+
+          if $job<skip> {
+            if self!validate-cond-expression($job<skip>,$job<debug>||False) {
+            use MONKEY-SEE-NO-EVAL;
+              next if EVAL("my \$a = \{given (tags()) \{ {$job<skip>} \}\}; \$a()");
+            } else {
+              warn "skip: job condition validation failed";
+              $status = False;
+              last; 
+            }
+          }
+
+          my $j = Sparky::JobApi.new(
+            :project("job.run"),
+          );
+
+          my %tags = (
+            job_id  => $job<id>,
+            path    => $job<path>,
+            stage   => "job-run",
+            scm     => tags()<scm>.subst('127.0.0.1','host.docker.internal'),
+            sha     => tags()<sha>,
+          );
+
+          if $job<plugin> {
+            %tags<plugin> = $job<plugin>
+          } elsif $job<path> {
+            %tags<path> = $job<path>
+          } else {
+            $status = False;
+            say "neither path nor path is set";
+            last;
+          }
+
+          if $job<debug> {
+            %tags<dump-task-config> = True;
+            %tags<dump-task-code> = True;
+          }
+
+          if $job<params> {
+            $j.put-stash(%(
+              params => $job<params>,
+              dsci => %_dsci,
+            ));
+          } else {
+            $j.put-stash(%(
+              dsci => %_dsci,
+              params => Hash.new,
+            ));
+          }
+
+          $j.queue({
+            :description($job<id>),
+            :tags(%tags),
+            :sparrowdo(%(
+              :docker<dsci-agent>,
+              :no_sudo,
+            )),
+          });
+
+          my $st = self.wait-job($j);
+
+          unless $st<OK> {
+            $status = False;
+            say "job {$job<id>} ... [FAIL]";
+            say "...";
+            say $j.report;
+            last;
+          }
+
+          %_dsci{$job<id>} = $j.get-stash();
+
+          say "job {$job<id>} ... [OK]";
+          say "...";
+          say $j.report();
+
+        }
+      }
+
+    }
+    self!update-commit-status($status ?? "success" !! "failure");
+  }
+
+  method stage-bootstrap {
+
+    bash "zef install --/test https://github.com/melezhik/Sparrow6.git";
+
+    package-install "python3";
+
+    say "dsci agent is ready!!!";
+
+  }
+
+  method stage-job-run {
+
+    #say tags().raku;
+
+    my $me = Sparky::JobApi.new( :mine );
+
+    say "run job: {tags()<job_id>}";
+
+    say "===";
+
+    if tags()<plugin> {
+
+      my $params = $me.get-stash()<params>;
+
+      if tags()<dump-task-code> {
+        %*ENV<SP6_DUMP_TASK_CODE> =  1;
+      }
+
+      if tags()<dump-task-config> {
+        %*ENV<SP6_DUMP_TASK_CONFIG> =  1;
+      }
+      my $s = task-run "plugin: {tags()<plugin>}", tags()<plugin>, $params;
+
+      $me.put-stash($s);
+
+      return;
+
+    } 
+
+    directory "scm";
+
+    git-scm tags()<scm>, %(
+      :to<scm>,
+      :branch(tags()<sha>),
+      :skip-pull,
+    );
+
+    for "scm/.dsci/{tags()<path>}".IO.dir: test => /^^ "job." \S+ $$/ -> $file {
+      $file.basename ~~ /^^ "job." (\S+) $$/;
+      my $ext = "$0";
+      say "cp {$file.basename} hook.{$ext} ...";
+      copy "scm/.dsci/{tags()<path>}/{$file.basename}",
+           "scm/.dsci/{tags()<path>}/hook.{$ext}";
+
+      bash q:to /BASH/, %( cwd => "scm/.dsci/{tags()<path>}", description => "patch python files" );
+        find . -type f -name task.py  | raku -e  'for lines() -> $i { my $c = $i.IO.slurp; $c = "from sparrow6lib import *\n\n$c"; $i.IO.spurt($c) }' 
+        find . -type f -name hook.py  | raku -e  'for lines() -> $i { my $c = $i.IO.slurp; $c = "from sparrow6lib import *\n\n$c"; $i.IO.spurt($c) }' 
+      BASH
+
+      my %p_ = $me.get-stash();
+
+      my %params = %p_<params>; 
+
+      %params<_dsci_> = %p_<dsci>;
+
+      chdir "scm/.dsci/{tags()<path>}";
+
+      if tags()<dump-task-config> {
+        %*ENV<SP6_DUMP_TASK_CONFIG> =  1;
+      }
+
+      if tags()<dump-task-code> {
+        %*ENV<SP6_DUMP_TASK_CODE> =  1;
+      }
+
+      my $s = task-run ".", %params;
+
+      $me.put-stash($s);
+
+    }
+  }
+
+}
+
+Pipeline.new.run;
