@@ -5,12 +5,12 @@ sparrowdo:
   format: default
   repo: https://sparrowhub.io/repo
   tags: >-
-    SCM_URL=https://github.com/melezhik/houston-site.git,
+    SCM_URL=git@github.com:melezhik/houston-site.git,
     SCM_SHA=main
 disabled: false
 keep_builds: 100
 allow_manual_run: true
 scm:
-  url: https://github.com/melezhik/houston-site.git
+  url: git@github.com:melezhik/houston-site.git
   branch: main
 
