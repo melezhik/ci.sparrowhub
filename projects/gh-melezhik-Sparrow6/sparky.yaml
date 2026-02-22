@@ -9,7 +9,7 @@ sparrowdo:
   tags: >
       SCM_URL=https://github.com/melezhik/Sparrow6.git,
       SCM_SHA=HEAD
-disabled: false
+disabled: true
 keep_builds: 100
 allow_manual_run: true
 scm:
