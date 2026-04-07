@@ -8,7 +8,7 @@ sparrowdo:
   docker: gh-melezhik-Sparrow6
   tags: >
       SCM_URL=https://github.com/melezhik/Sparrow6.git,
-      SCM_SHA=HEAD
+      SCM_SHA=rta-issue
 disabled: false
 keep_builds: 100
 allow_manual_run: true
