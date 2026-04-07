@@ -21,6 +21,9 @@ export DEBIAN_FRONTEND=noninteractive
 export TZ=Etc/UTC
 export DEBIAN_FRONTEND=noninteractive 
 sudo apt-get update
+sudo apt-get install -y debconf
+echo "tzdata tzdata/Areas select Europe" | debconf-set-selections
+echo "tzdata tzdata/Zones/Europe select London" | debconf-set-selections
 sudo apt-get install -yq tzdata
 sudo apt-get install -yq \
 ruby-dev ruby-bundler \
