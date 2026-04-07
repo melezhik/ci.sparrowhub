@@ -14,6 +14,6 @@ keep_builds: 100
 allow_manual_run: true
 scm:
   url: https://github.com/melezhik/Sparrow6.git
-  branch: HEAD
+  branch: rta-issue
 plugins:
   Sparky::Plugin::Docker: {}
