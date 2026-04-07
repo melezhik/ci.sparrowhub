@@ -19,7 +19,7 @@ set -e
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 export DEBIAN_FRONTEND=noninteractive
 export TZ=Etc/UTC
-sudo DEBIAN_FRONTEND=noninteractive
+sudo DEBIAN_FRONTEND=noninteractive \
 apt-get update -yq \
 apt-get install -yq tzdata \
 sudo apt-get install -yq \
