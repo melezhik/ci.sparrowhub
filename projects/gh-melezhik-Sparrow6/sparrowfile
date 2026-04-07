@@ -20,7 +20,7 @@ export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 export DEBIAN_FRONTEND=noninteractive
 export TZ=Etc/UTC
 sudo DEBIAN_FRONTEND=noninteractive
-sudo apt-get update -yq \
+apt-get update -yq \
 apt-get install -yq tzdata \
 sudo apt-get install -yq \
 ruby-dev ruby-bundler \
