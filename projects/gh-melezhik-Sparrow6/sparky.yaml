@@ -8,12 +8,12 @@ sparrowdo:
   docker: gh-melezhik-Sparrow6
   tags: >
       SCM_URL=https://github.com/melezhik/Sparrow6.git,
-      SCM_SHA=rta-issue
+      SCM_SHA=master
 disabled: false
 keep_builds: 100
 allow_manual_run: true
 scm:
   url: https://github.com/melezhik/Sparrow6.git
-  branch: rta-issue
+  branch: master
 plugins:
   Sparky::Plugin::Docker: {}
