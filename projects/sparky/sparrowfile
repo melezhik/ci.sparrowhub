@@ -1,5 +1,9 @@
 #!raku
 
+bash "tom pull && tom install", %(
+  cwd => "{%*ENV<HOME>}/projects/Sparrow6",
+);
+
 git-scm tags()<SCM_URL>, %(
   to => "{%*ENV<HOME>}/projects/sparky",
   branch => tags<SCM_BRANCH>
@@ -10,3 +14,4 @@ bash "tom install", %(
 );
 
 bash "sudo service sparky restart";
+bash "sudo service sparkyd restart";
