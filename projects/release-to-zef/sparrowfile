@@ -13,7 +13,7 @@ git-scm $git-repo, %(
 
 bash "fez version";
 
-bash "tom --clean && tomty --clean && rm -rf .sparrowdo && fez upload", %(
+bash "tom --clean && rm -rf .sparrowdo && fez upload", %(
   cwd => $dir,
   description => "fez upload",
 );
