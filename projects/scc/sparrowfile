@@ -7,6 +7,7 @@ bash "curl -s $check -L -o task.check",%(
 );
 bash "curl -s $in -L -o data.txt",%(
    :$cwd,
+);
 
 "task.bash".IO.spurt("cat data.txt");
 
