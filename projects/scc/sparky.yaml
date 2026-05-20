@@ -1,0 +1,15 @@
+sparrowdo:
+  no_sudo: true
+  repo: https://sparrowhub.io/repo
+  bootstrap: false
+  format: default
+allow_manual_run: true
+vars:
+  -
+      name: in
+      type: textarea
+      default: blablabla
+  -
+      name: check
+      type: textarea
+      default: check
