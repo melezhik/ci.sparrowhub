@@ -1,3 +1,5 @@
+use Sparky::JobApi;
+
 my $check = tags()<check>;
 my $in = tags()<in>;
 
@@ -10,5 +12,12 @@ bash "curl -s $in -L -o data.txt",%(
 );
 
 "task.bash".IO.spurt("cat data.txt");
+
+my $me = Sparky::JobApi.new: :mine;
+
+$me.put-file("{$*CWD}/task.check","task.check");
+
+$me.put-file("{$*CWD}/data.txt","data.txt");
+
 
 task-run ".";
