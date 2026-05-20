@@ -1,0 +1,8 @@
+my $check = tags()<check>;
+my $in = tags()<in>;
+
+"task.check".IO.spurt($check);
+"task.bash".IO.spurt("cat data.txt");
+"data.txt".IO.spurt($in);
+
+task-run ".";
