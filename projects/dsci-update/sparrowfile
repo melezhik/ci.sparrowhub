@@ -1,7 +1,0 @@
-#!raku
-
-git-scm tags()<SCM_URL>, %(
-  to => "{%*ENV<HOME>}/projects/dsci",
-  branch => tags<SCM_BRANCH>
-);
-
